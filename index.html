@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LP View Quest - Navigation Control Test</title>
+  <title>LP閲覧クエスト ナビゲーション制御テスト</title>
   <style>
     * {
       box-sizing: border-box;
@@ -237,7 +237,7 @@
 </head>
 <body id="top">
 
-  <h1>LP View Quest - Navigation Control Test</h1>
+  <h1>LP閲覧クエスト ナビゲーション制御テスト</h1>
 
   <div class="instructions">
     <h3>確認手順</h3>
@@ -262,10 +262,10 @@
   <!-- Section 1: Anchor Links -->
   <!-- ========================================== -->
   <div class="section" id="section1">
-    <h2>Section 1: Anchor Link (page internal)</h2>
+    <h2>Section 1: アンカーリンク（ページ内遷移）</h2>
 
     <div class="test-item">
-      <span class="label">Page internal anchor links (Section 2 ~ 6)</span>
+      <span class="label">ページ内アンカーリンク（Section 2〜6）</span>
       <div>
         <a href="#section2" class="test-link green">Section 2</a>
         <a href="#section3" class="test-link green" style="margin-left:4px;">Section 3</a>
@@ -274,17 +274,17 @@
         <a href="#section6" class="test-link green" style="margin-left:4px;">Section 6</a>
       </div>
       <div class="expected success">
-        Expected: Timer running / Timer expired / Flag OFF all -- always permitted. Page scrolls to the anchor position.
+        期待動作: タイマー中 / タイマー後 / フラグOFF すべてで常に許可。該当セクションにスクロールする。
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">Back to top</span>
+      <span class="label">トップに戻る</span>
       <div>
-        <a href="#top" class="test-link green">Back to Top (#top)</a>
+        <a href="#top" class="test-link green">トップに戻る (#top)</a>
       </div>
       <div class="expected success">
-        Expected: Always permitted. Scrolls to top.
+        期待動作: 常に許可。ページトップにスクロールする。
       </div>
     </div>
   </div>
@@ -293,65 +293,65 @@
   <!-- Section 2: GET Links -->
   <!-- ========================================== -->
   <div class="section" id="section2">
-    <h2>Section 2: GET Link</h2>
+    <h2>Section 2: GETリンク</h2>
 
     <div class="test-item">
-      <span class="label">External domain link</span>
+      <span class="label">外部ドメインリンク</span>
       <div>
         <a href="https://example.com" class="test-link">example.com</a>
       </div>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Opens in SFSafariViewController<br>
-        Flag OFF: Opens in SFSafariViewController
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: SFSafariViewControllerで開く<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">External domain link (Google)</span>
+      <span class="label">外部ドメインリンク（Google）</span>
       <div>
         <a href="https://www.google.com" class="test-link">google.com</a>
       </div>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Opens in SFSafariViewController<br>
-        Flag OFF: Opens in SFSafariViewController
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: SFSafariViewControllerで開く<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">Same domain, different path</span>
+      <span class="label">同一ドメイン別パス</span>
       <div>
-        <a href="/other-page" class="test-link">Same domain /other-page</a>
+        <a href="/other-page" class="test-link">同一ドメイン /other-page</a>
       </div>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Opens in SFSafariViewController<br>
-        Flag OFF: Opens in SFSafariViewController
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: SFSafariViewControllerで開く<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">Link with query parameters</span>
+      <span class="label">クエリパラメータ付きリンク</span>
       <div>
-        <a href="https://example.com/search?q=kauche&lang=ja" class="test-link">example.com with query</a>
+        <a href="https://example.com/search?q=kauche&lang=ja" class="test-link">example.com クエリ付き</a>
       </div>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Opens in SFSafariViewController<br>
-        Flag OFF: Opens in SFSafariViewController
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: SFSafariViewControllerで開く<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">Link with fragment + query</span>
+      <span class="label">フラグメント+クエリ付きリンク</span>
       <div>
-        <a href="https://example.com/page?ref=test#heading" class="test-link">example.com with query + fragment</a>
+        <a href="https://example.com/page?ref=test#heading" class="test-link">example.com クエリ+フラグメント</a>
       </div>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Opens in SFSafariViewController<br>
-        Flag OFF: Opens in SFSafariViewController
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: SFSafariViewControllerで開く<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
   </div>
@@ -360,31 +360,31 @@
   <!-- Section 3: Forms (POST / GET) -->
   <!-- ========================================== -->
   <div class="section" id="section3">
-    <h2>Section 3: Form (POST / GET)</h2>
+    <h2>Section 3: フォーム（POST / GET）</h2>
 
     <div class="test-item">
-      <span class="label">POST form</span>
+      <span class="label">POSTフォーム</span>
       <form method="POST" action="https://httpbin.org/post">
-        <input type="text" name="test_field" value="hello" placeholder="test data">
-        <input type="submit" value="POST Submit" class="post-submit">
+        <input type="text" name="test_field" value="hello" placeholder="テストデータ">
+        <input type="submit" value="POST送信" class="post-submit">
       </form>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Handled inside WebView (does not open SFSafariViewController)<br>
-        Flag OFF: Handled inside WebView
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: WebView内で処理（Safariは開かない）<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">GET form (for comparison)</span>
+      <span class="label">GETフォーム（比較用）</span>
       <form method="GET" action="https://httpbin.org/get">
-        <input type="text" name="search" value="kauche" placeholder="search query">
-        <input type="submit" value="GET Submit" class="get-submit">
+        <input type="text" name="search" value="kauche" placeholder="検索クエリ">
+        <input type="submit" value="GET送信" class="get-submit">
       </form>
       <div class="expected">
-        Timer running: Blocked + message displayed<br>
-        Timer expired: Opens in SFSafariViewController<br>
-        Flag OFF: Opens in SFSafariViewController
+        タイマー中: ブロック + メッセージ表示<br>
+        タイマー後: SFSafariViewControllerで開く<br>
+        フラグOFF: WebView内で自由に遷移
       </div>
     </div>
   </div>
@@ -393,7 +393,7 @@
   <!-- Section 4: JavaScript Navigation -->
   <!-- ========================================== -->
   <div class="section" id="section4">
-    <h2>Section 4: JavaScript Navigation</h2>
+    <h2>Section 4: JSナビゲーション</h2>
 
     <div class="test-item">
       <span class="label">window.location.href</span>
@@ -403,31 +403,31 @@
         </button>
       </div>
       <div class="expected">
-        Expected: Treated as non-user-initiated navigation. Permitted (opens in SFSafariViewController).
+        期待動作: 非ユーザー操作として扱われ、許可される。
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">setTimeout + navigation (2 second delay)</span>
+      <span class="label">setTimeout + ナビゲーション（2秒遅延）</span>
       <div>
-        <button class="test-link purple" onclick="this.textContent='Navigating in 2s...'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
-          JS: setTimeout (2s delay)
+        <button class="test-link purple" onclick="this.textContent='2秒後に遷移します...'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
+          JS: setTimeout（2秒遅延）
         </button>
       </div>
       <div class="expected">
-        Expected: Treated as non-user-initiated navigation. Permitted after 2 second delay (opens in SFSafariViewController).
+        期待動作: 非ユーザー操作として扱われ、2秒後に遷移が許可される。
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">window.open (new window)</span>
+      <span class="label">window.open（新規ウィンドウ）</span>
       <div>
         <button class="test-link purple" onclick="window.open('https://example.com', '_blank');">
           JS: window.open
         </button>
       </div>
       <div class="expected">
-        Expected: Behavior confirmation. May be blocked by popup blocker.
+        期待動作: 挙動確認用。ポップアップブロッカーによりブロックされる可能性あり。
       </div>
     </div>
   </div>
@@ -436,25 +436,25 @@
   <!-- Section 5: Deep Links -->
   <!-- ========================================== -->
   <div class="section" id="section5">
-    <h2>Section 5: Deep Link (for reference)</h2>
+    <h2>Section 5: ディープリンク（参考確認用）</h2>
 
     <div class="test-item">
-      <span class="label">kauche-internal-dev:// scheme</span>
+      <span class="label">kauche-internal-dev:// スキーム</span>
       <div>
-        <a href="kauche-internal-dev://app/coupons" class="test-link red">kauche-internal-dev://app/coupons (クーポン)</a>
+        <a href="kauche-internal-dev://app/coupons" class="test-link red">kauche-internal-dev://app/coupons（クーポン）</a>
       </div>
       <div class="expected warn">
-        For reference: Deep links are not typically found in LP pages. Behavior check only.
+        参考: LPに含まれることは基本ないが、念のため挙動確認。
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">kauche-dev:// scheme</span>
+      <span class="label">kauche-dev:// スキーム</span>
       <div>
-        <a href="kauche-dev://app/tab/mypage" class="test-link red">kauche-dev://app/tab/mypage (マイページ)</a>
+        <a href="kauche-dev://app/tab/mypage" class="test-link red">kauche-dev://app/tab/mypage（マイページ）</a>
       </div>
       <div class="expected warn">
-        For reference: Deep links are not typically found in LP pages. Behavior check only.
+        参考: LPに含まれることは基本ないが、念のため挙動確認。
       </div>
     </div>
   </div>
@@ -463,35 +463,35 @@
   <!-- Section 6: Special Protocols -->
   <!-- ========================================== -->
   <div class="section" id="section6">
-    <h2>Section 6: Special Protocols</h2>
+    <h2>Section 6: 特殊プロトコル</h2>
 
     <div class="test-item">
-      <span class="label">tel: (phone call)</span>
+      <span class="label">tel:（電話発信）</span>
       <div>
         <a href="tel:090-0000-0000" class="test-link gray">tel:090-0000-0000</a>
       </div>
       <div class="expected warn">
-        For reference: Behavior check only. May prompt phone call dialog.
+        参考: 挙動確認用。電話発信ダイアログが表示される可能性あり。
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">mailto: (email)</span>
+      <span class="label">mailto:（メール作成）</span>
       <div>
         <a href="mailto:test@example.com" class="test-link gray">mailto:test@example.com</a>
       </div>
       <div class="expected warn">
-        For reference: Behavior check only. May open mail app.
+        参考: 挙動確認用。メールアプリが開く可能性あり。
       </div>
     </div>
 
     <div class="test-item">
-      <span class="label">sms:</span>
+      <span class="label">sms:（SMS送信）</span>
       <div>
         <a href="sms:090-0000-0000" class="test-link gray">sms:090-0000-0000</a>
       </div>
       <div class="expected warn">
-        For reference: Behavior check only. May open messages app.
+        参考: 挙動確認用。メッセージアプリが開く可能性あり。
       </div>
     </div>
   </div>
