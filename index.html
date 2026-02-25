@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LP View Quest - Navigation Control Test</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+      padding: 16px;
+      padding-bottom: 80px;
+    }
+
+    h1 {
+      font-size: 20px;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #007aff;
+    }
+
+    h2 {
+      font-size: 17px;
+      color: #007aff;
+      margin-bottom: 8px;
+      padding: 8px 0 4px;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .instructions {
+      background-color: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+
+    .instructions h3 {
+      font-size: 15px;
+      color: #856404;
+      margin-bottom: 8px;
+    }
+
+    .instructions ol {
+      padding-left: 20px;
+      color: #856404;
+      font-size: 14px;
+    }
+
+    .instructions li {
+      margin-bottom: 4px;
+    }
+
+    .section {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .test-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .test-item:last-child {
+      border-bottom: none;
+    }
+
+    .test-link {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #007aff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .test-link:active {
+      background-color: #005ec4;
+    }
+
+    .test-link.green {
+      background-color: #28a745;
+    }
+
+    .test-link.green:active {
+      background-color: #1e7e34;
+    }
+
+    .test-link.orange {
+      background-color: #fd7e14;
+    }
+
+    .test-link.orange:active {
+      background-color: #e06600;
+    }
+
+    .test-link.purple {
+      background-color: #6f42c1;
+    }
+
+    .test-link.purple:active {
+      background-color: #5a32a3;
+    }
+
+    .test-link.red {
+      background-color: #dc3545;
+    }
+
+    .test-link.red:active {
+      background-color: #bd2130;
+    }
+
+    .test-link.gray {
+      background-color: #6c757d;
+    }
+
+    .test-link.gray:active {
+      background-color: #545b62;
+    }
+
+    button.test-link {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .expected {
+      font-size: 13px;
+      color: #666;
+      background-color: #f8f9fa;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border-left: 3px solid #007aff;
+    }
+
+    .expected.warn {
+      border-left-color: #ffc107;
+      background-color: #fffdf0;
+    }
+
+    .expected.success {
+      border-left-color: #28a745;
+      background-color: #f0fff4;
+    }
+
+    .label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .nav-toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .nav-toc a {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #e9ecef;
+      color: #495057;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .nav-toc a:active {
+      background-color: #ced4da;
+    }
+
+    form {
+      display: inline;
+    }
+
+    input[type="text"] {
+      padding: 6px 10px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 14px;
+      width: 200px;
+      margin-right: 8px;
+    }
+
+    input[type="submit"] {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    input[type="submit"].post-submit {
+      background-color: #fd7e14;
+    }
+
+    input[type="submit"].get-submit {
+      background-color: #007aff;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 14px;
+      background-color: #007aff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50%;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+    }
+  </style>
+</head>
+<body id="top">
+
+  <h1>LP View Quest - Navigation Control Test</h1>
+
+  <div class="instructions">
+    <h3>確認手順</h3>
+    <ol>
+      <li>LP閲覧クエスト画面でこのページを表示する</li>
+      <li><strong>30秒タイマー中</strong>に各リンクをタップして確認する</li>
+      <li><strong>30秒経過後</strong>に各リンクをタップして確認する</li>
+      <li><strong>ABTestフラグOFF</strong>の状態で全リンクが自由に遷移できるか確認する</li>
+    </ol>
+  </div>
+
+  <div class="nav-toc">
+    <a href="#section1">1. Anchor</a>
+    <a href="#section2">2. GET Link</a>
+    <a href="#section3">3. Form</a>
+    <a href="#section4">4. JS Nav</a>
+    <a href="#section5">5. Deep Link</a>
+    <a href="#section6">6. Special</a>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Section 1: Anchor Links -->
+  <!-- ========================================== -->
+  <div class="section" id="section1">
+    <h2>Section 1: Anchor Link (page internal)</h2>
+
+    <div class="test-item">
+      <span class="label">Page internal anchor links (Section 2 ~ 6)</span>
+      <div>
+        <a href="#section2" class="test-link green">Section 2</a>
+        <a href="#section3" class="test-link green" style="margin-left:4px;">Section 3</a>
+        <a href="#section4" class="test-link green" style="margin-left:4px;">Section 4</a>
+        <a href="#section5" class="test-link green" style="margin-left:4px;">Section 5</a>
+        <a href="#section6" class="test-link green" style="margin-left:4px;">Section 6</a>
+      </div>
+      <div class="expected success">
+        Expected: Timer running / Timer expired / Flag OFF all -- always permitted. Page scrolls to the anchor position.
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">Back to top</span>
+      <div>
+        <a href="#top" class="test-link green">Back to Top (#top)</a>
+      </div>
+      <div class="expected success">
+        Expected: Always permitted. Scrolls to top.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Section 2: GET Links -->
+  <!-- ========================================== -->
+  <div class="section" id="section2">
+    <h2>Section 2: GET Link</h2>
+
+    <div class="test-item">
+      <span class="label">External domain link</span>
+      <div>
+        <a href="https://example.com" class="test-link">example.com</a>
+      </div>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Opens in SFSafariViewController<br>
+        Flag OFF: Opens in SFSafariViewController
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">External domain link (Google)</span>
+      <div>
+        <a href="https://www.google.com" class="test-link">google.com</a>
+      </div>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Opens in SFSafariViewController<br>
+        Flag OFF: Opens in SFSafariViewController
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">Same domain, different path</span>
+      <div>
+        <a href="/other-page" class="test-link">Same domain /other-page</a>
+      </div>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Opens in SFSafariViewController<br>
+        Flag OFF: Opens in SFSafariViewController
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">Link with query parameters</span>
+      <div>
+        <a href="https://example.com/search?q=kauche&lang=ja" class="test-link">example.com with query</a>
+      </div>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Opens in SFSafariViewController<br>
+        Flag OFF: Opens in SFSafariViewController
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">Link with fragment + query</span>
+      <div>
+        <a href="https://example.com/page?ref=test#heading" class="test-link">example.com with query + fragment</a>
+      </div>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Opens in SFSafariViewController<br>
+        Flag OFF: Opens in SFSafariViewController
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Section 3: Forms (POST / GET) -->
+  <!-- ========================================== -->
+  <div class="section" id="section3">
+    <h2>Section 3: Form (POST / GET)</h2>
+
+    <div class="test-item">
+      <span class="label">POST form</span>
+      <form method="POST" action="https://httpbin.org/post">
+        <input type="text" name="test_field" value="hello" placeholder="test data">
+        <input type="submit" value="POST Submit" class="post-submit">
+      </form>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Handled inside WebView (does not open SFSafariViewController)<br>
+        Flag OFF: Handled inside WebView
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">GET form (for comparison)</span>
+      <form method="GET" action="https://httpbin.org/get">
+        <input type="text" name="search" value="kauche" placeholder="search query">
+        <input type="submit" value="GET Submit" class="get-submit">
+      </form>
+      <div class="expected">
+        Timer running: Blocked + message displayed<br>
+        Timer expired: Opens in SFSafariViewController<br>
+        Flag OFF: Opens in SFSafariViewController
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Section 4: JavaScript Navigation -->
+  <!-- ========================================== -->
+  <div class="section" id="section4">
+    <h2>Section 4: JavaScript Navigation</h2>
+
+    <div class="test-item">
+      <span class="label">window.location.href</span>
+      <div>
+        <button class="test-link purple" onclick="window.location.href='https://example.com';">
+          JS: window.location.href
+        </button>
+      </div>
+      <div class="expected">
+        Expected: Treated as non-user-initiated navigation. Permitted (opens in SFSafariViewController).
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">setTimeout + navigation (2 second delay)</span>
+      <div>
+        <button class="test-link purple" onclick="this.textContent='Navigating in 2s...'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
+          JS: setTimeout (2s delay)
+        </button>
+      </div>
+      <div class="expected">
+        Expected: Treated as non-user-initiated navigation. Permitted after 2 second delay (opens in SFSafariViewController).
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">window.open (new window)</span>
+      <div>
+        <button class="test-link purple" onclick="window.open('https://example.com', '_blank');">
+          JS: window.open
+        </button>
+      </div>
+      <div class="expected">
+        Expected: Behavior confirmation. May be blocked by popup blocker.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Section 5: Deep Links -->
+  <!-- ========================================== -->
+  <div class="section" id="section5">
+    <h2>Section 5: Deep Link (for reference)</h2>
+
+    <div class="test-item">
+      <span class="label">kauche-internal-dev:// scheme</span>
+      <div>
+        <a href="kauche-internal-dev://app/coupons" class="test-link red">kauche-internal-dev://app/coupons</a>
+      </div>
+      <div class="expected warn">
+        For reference: Deep links are not typically found in LP pages. Behavior check only.
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">kauche-dev:// scheme</span>
+      <div>
+        <a href="kauche-dev://app/farm/home" class="test-link red">kauche-dev://app/farm/home</a>
+      </div>
+      <div class="expected warn">
+        For reference: Deep links are not typically found in LP pages. Behavior check only.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- Section 6: Special Protocols -->
+  <!-- ========================================== -->
+  <div class="section" id="section6">
+    <h2>Section 6: Special Protocols</h2>
+
+    <div class="test-item">
+      <span class="label">tel: (phone call)</span>
+      <div>
+        <a href="tel:090-0000-0000" class="test-link gray">tel:090-0000-0000</a>
+      </div>
+      <div class="expected warn">
+        For reference: Behavior check only. May prompt phone call dialog.
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">mailto: (email)</span>
+      <div>
+        <a href="mailto:test@example.com" class="test-link gray">mailto:test@example.com</a>
+      </div>
+      <div class="expected warn">
+        For reference: Behavior check only. May open mail app.
+      </div>
+    </div>
+
+    <div class="test-item">
+      <span class="label">sms:</span>
+      <div>
+        <a href="sms:090-0000-0000" class="test-link gray">sms:090-0000-0000</a>
+      </div>
+      <div class="expected warn">
+        For reference: Behavior check only. May open messages app.
+      </div>
+    </div>
+  </div>
+
+  <a href="#top" class="back-to-top" aria-label="Back to top">&#8679;</a>
+
+</body>
+</html>
