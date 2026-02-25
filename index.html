@@ -5,498 +5,457 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LP閲覧クエスト ナビゲーション制御テスト</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background-color: #f8f9fa;
-      padding: 16px;
-      padding-bottom: 80px;
-    }
-
-    h1 {
-      font-size: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+      line-height: 1.5;
       color: #1a1a1a;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #007aff;
+      background: #f0f2f5;
+      padding: 0 0 100px;
     }
 
-    h2 {
-      font-size: 17px;
-      color: #007aff;
-      margin-bottom: 8px;
-      padding: 8px 0 4px;
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .instructions {
-      background-color: #fff3cd;
-      border: 1px solid #ffc107;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 20px;
-    }
-
-    .instructions h3 {
-      font-size: 15px;
-      color: #856404;
-      margin-bottom: 8px;
-    }
-
-    .instructions ol {
-      padding-left: 20px;
-      color: #856404;
-      font-size: 14px;
-    }
-
-    .instructions li {
-      margin-bottom: 4px;
-    }
-
-    .section {
-      background-color: #fff;
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-    }
-
-    .test-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .test-item:last-child {
-      border-bottom: none;
-    }
-
-    .test-link {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #007aff;
+    header {
+      background: linear-gradient(135deg, #007aff, #5856d6);
       color: #fff;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
+      padding: 20px 16px;
       text-align: center;
     }
 
-    .test-link:active {
-      background-color: #005ec4;
+    header h1 { font-size: 18px; font-weight: 700; }
+    header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+
+    .steps {
+      background: #fff;
+      margin: 12px;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    .test-link.green {
-      background-color: #28a745;
+    .steps h2 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .test-link.green:active {
-      background-color: #1e7e34;
+    .steps ol {
+      padding-left: 22px;
+      font-size: 14px;
+      color: #333;
     }
 
-    .test-link.orange {
-      background-color: #fd7e14;
+    .steps li { margin-bottom: 6px; }
+    .steps li strong { color: #007aff; }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 12px;
+      margin-bottom: 12px;
     }
 
-    .test-link.orange:active {
-      background-color: #e06600;
+    .toc a {
+      flex: 1;
+      min-width: calc(33% - 8px);
+      text-align: center;
+      padding: 10px 8px;
+      background: #fff;
+      color: #333;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    .test-link.purple {
-      background-color: #6f42c1;
+    .toc a:active { background: #e9ecef; }
+
+    .section {
+      margin: 12px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    .test-link.purple:active {
-      background-color: #5a32a3;
+    .section-header {
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
     }
 
-    .test-link.red {
-      background-color: #dc3545;
+    .section-header.anchor { background: #34c759; }
+    .section-header.get { background: #007aff; }
+    .section-header.form { background: #ff9500; }
+    .section-header.js { background: #af52de; }
+    .section-header.deeplink { background: #ff3b30; }
+    .section-header.special { background: #8e8e93; }
+
+    .section-body { background: #fff; }
+
+    .test-item {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f0f0;
     }
 
-    .test-link.red:active {
-      background-color: #bd2130;
+    .test-item:last-child { border-bottom: none; }
+
+    .test-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .test-link.gray {
-      background-color: #6c757d;
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
-    .test-link.gray:active {
-      background-color: #545b62;
-    }
-
-    button.test-link {
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
       border: none;
       cursor: pointer;
       font-family: inherit;
+      min-height: 44px;
     }
 
-    .expected {
-      font-size: 13px;
-      color: #666;
-      background-color: #f8f9fa;
-      padding: 6px 10px;
-      border-radius: 4px;
-      border-left: 3px solid #007aff;
+    .btn:active { opacity: 0.8; }
+    .btn.green { background: #34c759; }
+    .btn.blue { background: #007aff; }
+    .btn.orange { background: #ff9500; }
+    .btn.purple { background: #af52de; }
+    .btn.red { background: #ff3b30; }
+    .btn.gray { background: #8e8e93; }
+
+    .expect {
+      font-size: 12px;
+      color: #555;
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border-radius: 8px;
+      line-height: 1.7;
     }
 
-    .expected.warn {
-      border-left-color: #ffc107;
-      background-color: #fffdf0;
-    }
-
-    .expected.success {
-      border-left-color: #28a745;
-      background-color: #f0fff4;
-    }
-
-    .label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #495057;
-    }
-
-    .nav-toc {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .nav-toc a {
+    .expect .tag {
       display: inline-block;
-      padding: 4px 10px;
-      background-color: #e9ecef;
-      color: #495057;
-      text-decoration: none;
+      padding: 1px 6px;
       border-radius: 4px;
-      font-size: 13px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: 2px;
     }
 
-    .nav-toc a:active {
-      background-color: #ced4da;
-    }
-
-    form {
-      display: inline;
-    }
+    .tag.timer { background: #ffecec; color: #ff3b30; }
+    .tag.after { background: #e3f2fd; color: #007aff; }
+    .tag.off { background: #f0f0f0; color: #666; }
 
     input[type="text"] {
-      padding: 6px 10px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      font-size: 14px;
-      width: 200px;
-      margin-right: 8px;
+      padding: 10px 12px;
+      border: 1px solid #d1d1d6;
+      border-radius: 10px;
+      font-size: 15px;
+      width: 100%;
+      margin-bottom: 8px;
+      font-family: inherit;
     }
 
     input[type="submit"] {
-      padding: 8px 16px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
       color: #fff;
       cursor: pointer;
       font-family: inherit;
-    }
-
-    input[type="submit"].post-submit {
-      background-color: #fd7e14;
-    }
-
-    input[type="submit"].get-submit {
-      background-color: #007aff;
+      min-height: 44px;
     }
 
     .back-to-top {
       position: fixed;
       bottom: 20px;
-      right: 20px;
-      padding: 10px 14px;
-      background-color: #007aff;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      background: #007aff;
       color: #fff;
       text-decoration: none;
-      border-radius: 50%;
-      font-size: 18px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      z-index: 100;
+      border-radius: 22px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,122,255,0.4);
     }
+
+    form { display: block; }
   </style>
 </head>
 <body id="top">
 
-  <h1>LP閲覧クエスト ナビゲーション制御テスト</h1>
+  <header>
+    <h1>LP閲覧クエスト ナビゲーション制御テスト</h1>
+    <p>各ボタンをタップして期待動作を確認してください</p>
+  </header>
 
-  <div class="instructions">
-    <h3>確認手順</h3>
+  <div class="steps">
+    <h2>📋 確認手順</h2>
     <ol>
-      <li>LP閲覧クエスト画面でこのページを表示する</li>
-      <li><strong>30秒タイマー中</strong>に各リンクをタップして確認する</li>
-      <li><strong>30秒経過後</strong>に各リンクをタップして確認する</li>
-      <li><strong>ABTestフラグOFF</strong>の状態で全リンクが自由に遷移できるか確認する</li>
+      <li>LP閲覧クエスト画面でこのページを表示</li>
+      <li><strong>30秒タイマー中</strong>に各ボタンをタップ</li>
+      <li><strong>30秒経過後</strong>に各ボタンをタップ</li>
+      <li><strong>ABTestフラグOFF</strong>で全ボタンが自由に動作するか確認</li>
     </ol>
   </div>
 
-  <div class="nav-toc">
-    <a href="#section1">1. Anchor</a>
-    <a href="#section2">2. GET Link</a>
-    <a href="#section3">3. Form</a>
-    <a href="#section4">4. JS Nav</a>
-    <a href="#section5">5. Deep Link</a>
-    <a href="#section6">6. Special</a>
+  <div class="toc">
+    <a href="#section1">🔗 アンカー</a>
+    <a href="#section2">🌐 GET</a>
+    <a href="#section3">📝 フォーム</a>
+    <a href="#section4">⚡ JS遷移</a>
+    <a href="#section5">📱 Deep Link</a>
+    <a href="#section6">📞 特殊</a>
   </div>
 
-  <!-- ========================================== -->
-  <!-- Section 1: Anchor Links -->
-  <!-- ========================================== -->
+  <!-- Section 1: Anchor -->
   <div class="section" id="section1">
-    <h2>Section 1: アンカーリンク（ページ内遷移）</h2>
+    <div class="section-header anchor">🔗 Section 1: アンカーリンク</div>
+    <div class="section-body">
+      <div class="test-item">
+        <div class="test-label">ページ内リンク</div>
+        <div class="btn-row">
+          <a href="#section2" class="btn green">Section 2へ</a>
+          <a href="#section3" class="btn green">Section 3へ</a>
+          <a href="#section4" class="btn green">Section 4へ</a>
+          <a href="#section5" class="btn green">Section 5へ</a>
+          <a href="#section6" class="btn green">Section 6へ</a>
+        </div>
+        <div class="expect">
+          <span class="tag timer">タイマー中</span> 許可 &nbsp;
+          <span class="tag after">タイマー後</span> 許可 &nbsp;
+          <span class="tag off">フラグOFF</span> 許可<br>
+          → 常にページ内スクロールする
+        </div>
+      </div>
 
-    <div class="test-item">
-      <span class="label">ページ内アンカーリンク（Section 2〜6）</span>
-      <div>
-        <a href="#section2" class="test-link green">Section 2</a>
-        <a href="#section3" class="test-link green" style="margin-left:4px;">Section 3</a>
-        <a href="#section4" class="test-link green" style="margin-left:4px;">Section 4</a>
-        <a href="#section5" class="test-link green" style="margin-left:4px;">Section 5</a>
-        <a href="#section6" class="test-link green" style="margin-left:4px;">Section 6</a>
-      </div>
-      <div class="expected success">
-        期待動作: タイマー中 / タイマー後 / フラグOFF すべてで常に許可。該当セクションにスクロールする。
-      </div>
-    </div>
-
-    <div class="test-item">
-      <span class="label">トップに戻る</span>
-      <div>
-        <a href="#top" class="test-link green">トップに戻る (#top)</a>
-      </div>
-      <div class="expected success">
-        期待動作: 常に許可。ページトップにスクロールする。
+      <div class="test-item">
+        <div class="test-label">トップに戻る</div>
+        <div class="btn-row">
+          <a href="#top" class="btn green">トップに戻る</a>
+        </div>
+        <div class="expect">
+          → 常に許可。ページ上部にスクロールする。
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- Section 2: GET Links -->
-  <!-- ========================================== -->
+  <!-- Section 2: GET -->
   <div class="section" id="section2">
-    <h2>Section 2: GETリンク</h2>
+    <div class="section-header get">🌐 Section 2: GETリンク</div>
+    <div class="section-body">
+      <div class="test-item">
+        <div class="test-label">外部ドメイン</div>
+        <div class="btn-row">
+          <a href="https://example.com" class="btn blue">example.com</a>
+          <a href="https://www.google.com" class="btn blue">google.com</a>
+        </div>
+        <div class="expect">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
+          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
+        </div>
+      </div>
 
-    <div class="test-item">
-      <span class="label">外部ドメインリンク</span>
-      <div>
-        <a href="https://example.com" class="test-link">example.com</a>
+      <div class="test-item">
+        <div class="test-label">同一ドメイン別パス</div>
+        <div class="btn-row">
+          <a href="/other-page" class="btn blue">同一ドメイン /other-page</a>
+        </div>
+        <div class="expect">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
+          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
+        </div>
       </div>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: SFSafariViewControllerで開く<br>
-        フラグOFF: WebView内で自由に遷移
-      </div>
-    </div>
 
-    <div class="test-item">
-      <span class="label">外部ドメインリンク（Google）</span>
-      <div>
-        <a href="https://www.google.com" class="test-link">google.com</a>
+      <div class="test-item">
+        <div class="test-label">クエリパラメータ付き</div>
+        <div class="btn-row">
+          <a href="https://example.com/search?q=kauche&lang=ja" class="btn blue">クエリ付きリンク</a>
+        </div>
+        <div class="expect">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
+          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
+        </div>
       </div>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: SFSafariViewControllerで開く<br>
-        フラグOFF: WebView内で自由に遷移
-      </div>
-    </div>
 
-    <div class="test-item">
-      <span class="label">同一ドメイン別パス</span>
-      <div>
-        <a href="/other-page" class="test-link">同一ドメイン /other-page</a>
-      </div>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: SFSafariViewControllerで開く<br>
-        フラグOFF: WebView内で自由に遷移
-      </div>
-    </div>
-
-    <div class="test-item">
-      <span class="label">クエリパラメータ付きリンク</span>
-      <div>
-        <a href="https://example.com/search?q=kauche&lang=ja" class="test-link">example.com クエリ付き</a>
-      </div>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: SFSafariViewControllerで開く<br>
-        フラグOFF: WebView内で自由に遷移
-      </div>
-    </div>
-
-    <div class="test-item">
-      <span class="label">フラグメント+クエリ付きリンク</span>
-      <div>
-        <a href="https://example.com/page?ref=test#heading" class="test-link">example.com クエリ+フラグメント</a>
-      </div>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: SFSafariViewControllerで開く<br>
-        フラグOFF: WebView内で自由に遷移
+      <div class="test-item">
+        <div class="test-label">フラグメント + クエリ付き</div>
+        <div class="btn-row">
+          <a href="https://example.com/page?ref=test#heading" class="btn blue">クエリ + フラグメント</a>
+        </div>
+        <div class="expect">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
+          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- Section 3: Forms (POST / GET) -->
-  <!-- ========================================== -->
+  <!-- Section 3: Form -->
   <div class="section" id="section3">
-    <h2>Section 3: フォーム（POST / GET）</h2>
-
-    <div class="test-item">
-      <span class="label">POSTフォーム</span>
-      <form method="POST" action="https://httpbin.org/post">
-        <input type="text" name="test_field" value="hello" placeholder="テストデータ">
-        <input type="submit" value="POST送信" class="post-submit">
-      </form>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: WebView内で処理（Safariは開かない）<br>
-        フラグOFF: WebView内で自由に遷移
+    <div class="section-header form">📝 Section 3: フォーム</div>
+    <div class="section-body">
+      <div class="test-item">
+        <div class="test-label">POSTフォーム</div>
+        <form method="POST" action="https://httpbin.org/post">
+          <input type="text" name="test_field" value="hello" placeholder="テストデータ">
+          <input type="submit" value="POST送信" style="background:#ff9500; width:100%;">
+        </form>
+        <div class="expect" style="margin-top:10px;">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> WebView内で処理（Safariは開かない）<br>
+          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
+        </div>
       </div>
-    </div>
 
-    <div class="test-item">
-      <span class="label">GETフォーム（比較用）</span>
-      <form method="GET" action="https://httpbin.org/get">
-        <input type="text" name="search" value="kauche" placeholder="検索クエリ">
-        <input type="submit" value="GET送信" class="get-submit">
-      </form>
-      <div class="expected">
-        タイマー中: ブロック + メッセージ表示<br>
-        タイマー後: SFSafariViewControllerで開く<br>
-        フラグOFF: WebView内で自由に遷移
+      <div class="test-item">
+        <div class="test-label">GETフォーム（比較用）</div>
+        <form method="GET" action="https://httpbin.org/get">
+          <input type="text" name="search" value="kauche" placeholder="検索クエリ">
+          <input type="submit" value="GET送信" style="background:#007aff; width:100%;">
+        </form>
+        <div class="expect" style="margin-top:10px;">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
+          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- Section 4: JavaScript Navigation -->
-  <!-- ========================================== -->
+  <!-- Section 4: JS -->
   <div class="section" id="section4">
-    <h2>Section 4: JSナビゲーション</h2>
+    <div class="section-header js">⚡ Section 4: JSナビゲーション</div>
+    <div class="section-body">
+      <div class="test-item">
+        <div class="test-label">window.location.href</div>
+        <div class="btn-row">
+          <button class="btn purple" onclick="window.location.href='https://example.com';">
+            JS: location.href で遷移
+          </button>
+        </div>
+        <div class="expect">
+          → 非ユーザー操作として扱われ、許可される
+        </div>
+      </div>
 
-    <div class="test-item">
-      <span class="label">window.location.href</span>
-      <div>
-        <button class="test-link purple" onclick="window.location.href='https://example.com';">
-          JS: window.location.href
-        </button>
+      <div class="test-item">
+        <div class="test-label">setTimeout（2秒遅延）</div>
+        <div class="btn-row">
+          <button class="btn purple" onclick="this.textContent='2秒後に遷移します...'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
+            JS: 2秒遅延で遷移
+          </button>
+        </div>
+        <div class="expect">
+          → 非ユーザー操作として扱われ、2秒後に遷移が許可される
+        </div>
       </div>
-      <div class="expected">
-        期待動作: 非ユーザー操作として扱われ、許可される。
-      </div>
-    </div>
 
-    <div class="test-item">
-      <span class="label">setTimeout + ナビゲーション（2秒遅延）</span>
-      <div>
-        <button class="test-link purple" onclick="this.textContent='2秒後に遷移します...'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
-          JS: setTimeout（2秒遅延）
-        </button>
-      </div>
-      <div class="expected">
-        期待動作: 非ユーザー操作として扱われ、2秒後に遷移が許可される。
-      </div>
-    </div>
-
-    <div class="test-item">
-      <span class="label">window.open（新規ウィンドウ）</span>
-      <div>
-        <button class="test-link purple" onclick="window.open('https://example.com', '_blank');">
-          JS: window.open
-        </button>
-      </div>
-      <div class="expected">
-        期待動作: 挙動確認用。ポップアップブロッカーによりブロックされる可能性あり。
+      <div class="test-item">
+        <div class="test-label">window.open（新規ウィンドウ）</div>
+        <div class="btn-row">
+          <button class="btn purple" onclick="window.open('https://example.com', '_blank');">
+            JS: window.open
+          </button>
+        </div>
+        <div class="expect">
+          → 挙動確認用。ポップアップブロッカーでブロックされる可能性あり
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- Section 5: Deep Links -->
-  <!-- ========================================== -->
+  <!-- Section 5: Deep Link -->
   <div class="section" id="section5">
-    <h2>Section 5: ディープリンク（参考確認用）</h2>
+    <div class="section-header deeplink">📱 Section 5: ディープリンク</div>
+    <div class="section-body">
+      <div class="test-item">
+        <div class="test-label">kauche-internal-dev://</div>
+        <div class="btn-row">
+          <a href="kauche-internal-dev://app/tab/mypage" class="btn red">internal: マイページ</a>
+        </div>
+        <div class="expect">
+          ⚠️ WKWebViewが非HTTP スキームの decidePolicyFor を呼ばないため、反応しない可能性あり
+        </div>
+      </div>
 
-    <div class="test-item">
-      <span class="label">kauche-internal-dev:// スキーム</span>
-      <div>
-        <a href="kauche-internal-dev://app/tab/mypage" class="test-link red">kauche-internal-dev://app/tab/mypage（マイページ）</a>
-      </div>
-      <div class="expected warn">
-        参考: LPに含まれることは基本ないが、念のため挙動確認。
-      </div>
-    </div>
-
-    <div class="test-item">
-      <span class="label">kauche-dev:// スキーム</span>
-      <div>
-        <a href="kauche-dev://app/tab/mypage" class="test-link red">kauche-dev://app/tab/mypage（マイページ）</a>
-      </div>
-      <div class="expected warn">
-        参考: LPに含まれることは基本ないが、念のため挙動確認。
+      <div class="test-item">
+        <div class="test-label">kauche-dev://</div>
+        <div class="btn-row">
+          <a href="kauche-dev://app/tab/mypage" class="btn red">kauche-dev: マイページ</a>
+        </div>
+        <div class="expect">
+          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
+          <span class="tag after">タイマー後</span> OS経由でアプリ内遷移<br>
+          <span class="tag off">フラグOFF</span> 既存挙動（WebView内で処理）
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- Section 6: Special Protocols -->
-  <!-- ========================================== -->
+  <!-- Section 6: Special -->
   <div class="section" id="section6">
-    <h2>Section 6: 特殊プロトコル</h2>
+    <div class="section-header special">📞 Section 6: 特殊プロトコル</div>
+    <div class="section-body">
+      <div class="test-item">
+        <div class="test-label">電話発信</div>
+        <div class="btn-row">
+          <a href="tel:090-0000-0000" class="btn gray">tel: 090-0000-0000</a>
+        </div>
+        <div class="expect">→ 挙動確認用。電話発信ダイアログが表示される可能性あり</div>
+      </div>
 
-    <div class="test-item">
-      <span class="label">tel:（電話発信）</span>
-      <div>
-        <a href="tel:090-0000-0000" class="test-link gray">tel:090-0000-0000</a>
+      <div class="test-item">
+        <div class="test-label">メール作成</div>
+        <div class="btn-row">
+          <a href="mailto:test@example.com" class="btn gray">mailto: test@example.com</a>
+        </div>
+        <div class="expect">→ 挙動確認用。メールアプリが開く可能性あり</div>
       </div>
-      <div class="expected warn">
-        参考: 挙動確認用。電話発信ダイアログが表示される可能性あり。
-      </div>
-    </div>
 
-    <div class="test-item">
-      <span class="label">mailto:（メール作成）</span>
-      <div>
-        <a href="mailto:test@example.com" class="test-link gray">mailto:test@example.com</a>
-      </div>
-      <div class="expected warn">
-        参考: 挙動確認用。メールアプリが開く可能性あり。
-      </div>
-    </div>
-
-    <div class="test-item">
-      <span class="label">sms:（SMS送信）</span>
-      <div>
-        <a href="sms:090-0000-0000" class="test-link gray">sms:090-0000-0000</a>
-      </div>
-      <div class="expected warn">
-        参考: 挙動確認用。メッセージアプリが開く可能性あり。
+      <div class="test-item">
+        <div class="test-label">SMS送信</div>
+        <div class="btn-row">
+          <a href="sms:090-0000-0000" class="btn gray">sms: 090-0000-0000</a>
+        </div>
+        <div class="expect">→ 挙動確認用。メッセージアプリが開く可能性あり</div>
       </div>
     </div>
   </div>
 
-  <a href="#top" class="back-to-top" aria-label="Back to top">&#8679;</a>
+  <a href="#top" class="back-to-top">↑</a>
 
 </body>
 </html>
