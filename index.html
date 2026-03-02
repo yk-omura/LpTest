@@ -137,6 +137,19 @@
 
     .card-body { background: #fff; }
 
+    /* ユースケース説明 */
+    .usecase-desc {
+      padding: 12px 16px;
+      background: #f8f8fa;
+      border-bottom: 1px solid #e5e5ea;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .usecase-desc strong {
+      color: #333;
+    }
+
     .test-row {
       padding: 16px;
       border-bottom: 1px solid #f0f0f0;
@@ -150,37 +163,32 @@
       color: #333;
     }
 
-    /* ボタン */
+    /* ボタン — シンプルなアウトライン風 */
     .action-btn {
       display: block;
       width: 100%;
       padding: 14px 20px;
-      color: #fff;
+      color: #333;
       text-decoration: none;
       border-radius: 12px;
       font-size: 16px;
       font-weight: 700;
-      border: none;
+      border: 2px solid #ccc;
+      background: #fff;
       cursor: pointer;
       font-family: inherit;
       min-height: 48px;
       text-align: center;
       margin-bottom: 12px;
     }
-    .action-btn:active { opacity: 0.85; transform: scale(0.98); }
-    .action-btn.green { background: #34c759; }
-    .action-btn.blue { background: #007aff; }
-    .action-btn.orange { background: #ff9500; }
-    .action-btn.purple { background: #af52de; }
-    .action-btn.red { background: #ff3b30; }
-    .action-btn.gray { background: #8e8e93; }
+    .action-btn:active { opacity: 0.7; transform: scale(0.98); background: #f0f0f0; }
 
     .action-btn-row {
       display: flex;
       gap: 8px;
       margin-bottom: 12px;
     }
-    .action-btn-row .action-btn { flex: 1; margin-bottom: 0; }
+    .action-btn-row .action-btn { flex: 1; margin-bottom: 0; font-size: 14px; padding: 12px 8px; }
 
     /* 期待動作テーブル */
     .expect-table {
@@ -247,16 +255,18 @@
       display: block;
       width: 100%;
       padding: 14px 20px;
-      border: none;
+      border: 2px solid #ccc;
       border-radius: 12px;
       font-size: 16px;
       font-weight: 700;
-      color: #fff;
+      color: #333;
+      background: #fff;
       cursor: pointer;
       font-family: inherit;
       min-height: 48px;
       margin-bottom: 12px;
     }
+    input[type="submit"]:active { opacity: 0.7; background: #f0f0f0; }
 
     /* トップへ戻る */
     .back-to-top {
@@ -295,7 +305,7 @@
     </div>
     <div class="step">
       <div class="step-num">2</div>
-      <div class="step-text"><strong>30秒カウントダウン中</strong>に各ボタンをタップ</div>
+      <div class="step-text"><strong>カウントダウン中</strong>に各ボタンをタップ</div>
     </div>
     <div class="step">
       <div class="step-num">3</div>
@@ -331,7 +341,7 @@
     <a href="#sec-anchor">ページ内<br>リンク</a>
     <a href="#sec-link">外部<br>リンク</a>
     <a href="#sec-form">フォーム<br>送信</a>
-    <a href="#sec-js">JS<br>遷移</a>
+    <a href="#sec-js">JS<br>操作</a>
     <a href="#sec-deep">ディープ<br>リンク</a>
     <a href="#sec-special">電話・<br>メール</a>
   </div>
@@ -341,13 +351,16 @@
   <!-- ==================== -->
   <div class="test-card" id="sec-anchor">
     <div class="card-header green">1. ページ内リンク（アンカー）</div>
+    <div class="usecase-desc">
+      <strong>LPでの例:</strong> 目次から各セクションへジャンプ、「詳しくはこちら」で同ページ内の説明セクションへ移動など
+    </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">同じページ内を移動する</div>
         <div class="action-btn-row">
-          <a href="#sec-link" class="action-btn green">外部リンクへ</a>
-          <a href="#sec-form" class="action-btn green">フォームへ</a>
-          <a href="#sec-deep" class="action-btn green">ディープリンクへ</a>
+          <a href="#sec-link" class="action-btn">外部リンクへ</a>
+          <a href="#sec-form" class="action-btn">フォームへ</a>
+          <a href="#sec-deep" class="action-btn">ディープリンクへ</a>
         </div>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
@@ -364,10 +377,13 @@
   <!-- ==================== -->
   <div class="test-card" id="sec-link">
     <div class="card-header blue">2. 外部リンク（通常のリンク）</div>
+    <div class="usecase-desc">
+      <strong>LPでの例:</strong> 「公式サイトはこちら」「詳細を見る」などの外部サイトへのテキストリンク・バナーリンク
+    </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">外部サイトへのリンク</div>
-        <a href="https://example.com" class="action-btn blue">example.com を開く</a>
+        <a href="https://example.com" class="action-btn">example.com を開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 「N秒後にリンクを開けるようになります」と表示</td></tr>
@@ -378,7 +394,7 @@
 
       <div class="test-row">
         <div class="test-name">Google検索（別の外部サイト）</div>
-        <a href="https://www.google.com" class="action-btn blue">google.com を開く</a>
+        <a href="https://www.google.com" class="action-btn">google.com を開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
@@ -389,7 +405,7 @@
 
       <div class="test-row">
         <div class="test-name">同じサイトの別ページ</div>
-        <a href="/other-page" class="action-btn blue">同じサイトの /other-page</a>
+        <a href="/other-page" class="action-btn">同じサイトの /other-page</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
@@ -400,7 +416,7 @@
 
       <div class="test-row">
         <div class="test-name">パラメータ付きリンク</div>
-        <a href="https://example.com/search?q=kauche&lang=ja" class="action-btn blue">パラメータ付きで開く</a>
+        <a href="https://example.com/search?q=kauche&lang=ja" class="action-btn">パラメータ付きで開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
@@ -416,12 +432,15 @@
   <!-- ==================== -->
   <div class="test-card" id="sec-form">
     <div class="card-header orange">3. フォーム送信</div>
+    <div class="usecase-desc">
+      <strong>LPでの例:</strong> アンケート回答送信、メルマガ登録フォーム、お問い合わせフォームなど。POSTとGETでWebView内の挙動が異なるためそれぞれテストが必要
+    </div>
     <div class="card-body">
       <div class="test-row">
-        <div class="test-name">POST送信（購入フォームなどを想定）</div>
+        <div class="test-name">POST送信（アンケート回答・お問い合わせなど）</div>
         <form method="POST" action="https://httpbin.org/post">
           <input type="text" name="test_field" value="テストデータ" placeholder="入力内容">
-          <input type="submit" value="POST で送信する" style="background:#ff9500;">
+          <input type="submit" value="POST で送信する">
         </form>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
@@ -429,13 +448,14 @@
           <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-webview">そのまま遷移</span> 画面内で送信結果ページに移動（Safariは開かない）</td></tr>
           <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
+        <div class="info-note">POST送信はWebView内で処理されるため、カウントダウン後もSafariではなくWebView内で遷移します</div>
       </div>
 
       <div class="test-row">
-        <div class="test-name">GET送信（検索フォームなどを想定）</div>
+        <div class="test-name">GET送信（検索フォーム・フィルタなど）</div>
         <form method="GET" action="https://httpbin.org/get">
           <input type="text" name="search" value="kauche" placeholder="検索キーワード">
-          <input type="submit" value="GET で送信する" style="background:#007aff;">
+          <input type="submit" value="GET で送信する">
         </form>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
@@ -448,39 +468,17 @@
   </div>
 
   <!-- ==================== -->
-  <!-- 4. JavaScript遷移 -->
+  <!-- 4. ページ内 JS 操作 -->
   <!-- ==================== -->
   <div class="test-card" id="sec-js">
-    <div class="card-header purple">4. JavaScript による自動遷移</div>
+    <div class="card-header purple">4. ページ内 JS 操作</div>
+    <div class="usecase-desc">
+      <strong>LPでの例:</strong> よくある質問のアコーディオン開閉、タブ切り替え、モーダル表示など。ページ遷移を伴わないDOM操作はナビゲーション制御の対象外
+    </div>
     <div class="card-body">
       <div class="test-row">
-        <div class="test-name">即時の自動遷移</div>
-        <button class="action-btn purple" onclick="window.location.href='https://example.com';">
-          タップすると自動遷移する
-        </button>
-        <table class="expect-table">
-          <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-webview">そのまま遷移</span> 自動遷移はブロックされない</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-webview">そのまま遷移</span> 自動遷移はブロックされない</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
-        </table>
-        <div class="info-note">JS による自動的なページ移動は、ユーザーの手動タップとは区別されるため常に許可されます</div>
-      </div>
-
-      <div class="test-row">
-        <div class="test-name">2秒遅延の自動遷移</div>
-        <button class="action-btn purple" onclick="this.textContent='2秒後に遷移します...'; this.style.opacity='0.6'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
-          タップすると2秒後に自動遷移する
-        </button>
-        <table class="expect-table">
-          <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">全条件共通</td><td><span class="badge badge-webview">そのまま遷移</span> 2秒後に遷移する（ブロックされない）</td></tr>
-        </table>
-      </div>
-
-      <div class="test-row">
-        <div class="test-name">アコーディオン（ページ内 JS 操作）</div>
-        <div style="border:2px solid #af52de; border-radius:12px; overflow:hidden; margin-bottom:12px;">
+        <div class="test-name">アコーディオン（開閉UI）</div>
+        <div style="border:2px solid #e5e5ea; border-radius:12px; overflow:hidden; margin-bottom:12px;">
           <button onclick="var c=this.nextElementSibling; c.style.display=c.style.display==='none'?'block':'none'; this.textContent=c.style.display==='none'?'▶ よくある質問（タップで開く）':'▼ よくある質問（タップで閉じる）'" style="width:100%; padding:14px 16px; background:#f2f2f7; border:none; font-size:15px; font-weight:700; text-align:left; cursor:pointer; font-family:inherit;">▶ よくある質問（タップで開く）</button>
           <div style="display:none; padding:16px; font-size:14px; line-height:1.8;">
             <p><strong>Q. これはアコーディオンですか？</strong></p>
@@ -496,6 +494,44 @@
         </table>
         <div class="info-note">ページ内の DOM 操作のみなので、ナビゲーション制御の影響を受けません</div>
       </div>
+
+      <div class="test-row">
+        <div class="test-name">タブ切り替え</div>
+        <div style="border:2px solid #e5e5ea; border-radius:12px; overflow:hidden; margin-bottom:12px;">
+          <div style="display:flex; border-bottom:1px solid #e5e5ea;" id="tab-buttons">
+            <button onclick="switchTab('tab1')" id="tab-btn-tab1" style="flex:1; padding:12px; border:none; background:#007aff; color:#fff; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;">タブ A</button>
+            <button onclick="switchTab('tab2')" id="tab-btn-tab2" style="flex:1; padding:12px; border:none; background:#f2f2f7; color:#333; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;">タブ B</button>
+            <button onclick="switchTab('tab3')" id="tab-btn-tab3" style="flex:1; padding:12px; border:none; background:#f2f2f7; color:#333; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;">タブ C</button>
+          </div>
+          <div id="tab-tab1" style="padding:16px; font-size:14px;">タブ A の内容です。タブをタップして切り替えてください。</div>
+          <div id="tab-tab2" style="padding:16px; font-size:14px; display:none;">タブ B の内容です。ページ遷移なしで表示が切り替わります。</div>
+          <div id="tab-tab3" style="padding:16px; font-size:14px; display:none;">タブ C の内容です。ナビゲーション制御の影響を受けません。</div>
+        </div>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">全条件共通</td><td><span class="badge badge-scroll">切替</span> 常にタブをタップで切り替えられる（ページ遷移なし）</td></tr>
+        </table>
+      </div>
+
+      <div class="test-row">
+        <div class="test-name">モーダル表示</div>
+        <button class="action-btn" onclick="document.getElementById('test-modal').style.display='flex'">
+          モーダルを開く
+        </button>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">全条件共通</td><td><span class="badge badge-scroll">表示</span> 常にモーダルが開閉できる（ページ遷移なし）</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- モーダル -->
+  <div id="test-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:16px; padding:24px; margin:24px; max-width:320px; text-align:center;">
+      <div style="font-size:18px; font-weight:700; margin-bottom:12px;">モーダルダイアログ</div>
+      <div style="font-size:14px; color:#666; margin-bottom:20px; line-height:1.6;">これはJS で表示されるモーダルです。<br>ページ遷移は発生しません。</div>
+      <button onclick="document.getElementById('test-modal').style.display='none'" style="padding:12px 32px; background:#007aff; color:#fff; border:none; border-radius:10px; font-size:16px; font-weight:700; cursor:pointer; font-family:inherit;">閉じる</button>
     </div>
   </div>
 
@@ -504,10 +540,13 @@
   <!-- ==================== -->
   <div class="test-card" id="sec-deep">
     <div class="card-header red">5. ディープリンク（アプリ内遷移）</div>
+    <div class="usecase-desc">
+      <strong>LPでの例:</strong> 「アプリで商品を見る」「マイページへ」などカウシェアプリ内の別画面に遷移させるリンク
+    </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">kauche-dev:// マイページ</div>
-        <a href="kauche-dev://app/tab/mypage" class="action-btn red">マイページへ移動</a>
+        <a href="kauche-dev://app/tab/mypage" class="action-btn">マイページへ移動</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、アプリ内遷移しない</td></tr>
@@ -518,7 +557,7 @@
 
       <div class="test-row">
         <div class="test-name">kauche-internal-dev:// 投稿閲覧クエスト</div>
-        <a href="kauche-internal-dev://farm/quests/post_view_quest" class="action-btn red">投稿閲覧クエストへ移動</a>
+        <a href="kauche-internal-dev://farm/quests/post_view_quest" class="action-btn">投稿閲覧クエストへ移動</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">全条件共通</td><td><span class="badge badge-warn">反応なし</span> タップしても何も起きない（既知の制限）</td></tr>
@@ -533,10 +572,13 @@
   <!-- ==================== -->
   <div class="test-card" id="sec-special">
     <div class="card-header gray">6. 電話・メール・SMS</div>
+    <div class="usecase-desc">
+      <strong>LPでの例:</strong> 「お問い合わせはこちら」の電話番号リンク、メールアドレスリンクなど
+    </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">電話をかける</div>
-        <a href="tel:090-0000-0000" class="action-btn gray">090-0000-0000 に電話</a>
+        <a href="tel:090-0000-0000" class="action-btn">090-0000-0000 に電話</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
@@ -547,7 +589,7 @@
 
       <div class="test-row">
         <div class="test-name">メールを送る</div>
-        <a href="mailto:test@example.com" class="action-btn gray">test@example.com にメール</a>
+        <a href="mailto:test@example.com" class="action-btn">test@example.com にメール</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
@@ -558,7 +600,7 @@
 
       <div class="test-row">
         <div class="test-name">SMSを送る</div>
-        <a href="sms:090-0000-0000" class="action-btn gray">090-0000-0000 にSMS</a>
+        <a href="sms:090-0000-0000" class="action-btn">090-0000-0000 にSMS</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
           <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
@@ -571,5 +613,20 @@
 
   <a href="#top" class="back-to-top">↑</a>
 
+  <script>
+    function switchTab(tabId) {
+      // すべてのタブコンテンツを非表示
+      document.querySelectorAll('[id^="tab-tab"]').forEach(function(el) { el.style.display = 'none'; });
+      // すべてのタブボタンをデフォルトに
+      document.querySelectorAll('[id^="tab-btn-"]').forEach(function(el) {
+        el.style.background = '#f2f2f7';
+        el.style.color = '#333';
+      });
+      // 選択タブを表示
+      document.getElementById('tab-' + tabId).style.display = 'block';
+      document.getElementById('tab-btn-' + tabId).style.background = '#007aff';
+      document.getElementById('tab-btn-' + tabId).style.color = '#fff';
+    }
+  </script>
 </body>
 </html>
