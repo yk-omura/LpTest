@@ -280,13 +280,13 @@
       gap: 6px;
       width: 100%;
       padding: 14px 16px;
-      color: var(--slate-700);
+      color: #fff;
       text-decoration: none;
       border-radius: 10px;
       font-size: 15px;
-      font-weight: 600;
-      border: 2px dashed var(--slate-300, #cbd5e1);
-      background: var(--slate-50);
+      font-weight: 700;
+      border: none;
+      background: var(--slate-800);
       cursor: pointer;
       font-family: inherit;
       min-height: 48px;
@@ -295,14 +295,8 @@
       transition: all 0.15s;
       position: relative;
     }
-    .action-btn::before {
-      content: '▶';
-      font-size: 10px;
-      color: var(--slate-400);
-    }
     .action-btn:active {
-      background: var(--slate-200);
-      border-color: var(--slate-400);
+      background: var(--slate-900);
       transform: scale(0.98);
     }
 
@@ -409,12 +403,12 @@
       justify-content: center;
       width: 100%;
       padding: 14px 16px;
-      border: 2px dashed var(--slate-300, #cbd5e1);
+      border: none;
       border-radius: 10px;
       font-size: 15px;
-      font-weight: 600;
-      color: var(--slate-700);
-      background: var(--slate-50);
+      font-weight: 700;
+      color: #fff;
+      background: var(--slate-800);
       cursor: pointer;
       font-family: inherit;
       min-height: 48px;
@@ -422,8 +416,8 @@
       transition: all 0.15s;
     }
     input[type="submit"]:active {
-      background: var(--slate-200);
-      border-color: var(--slate-400);
+      background: var(--slate-900);
+      transform: scale(0.98);
     }
 
     /* ====== JS操作内部UI ====== */
@@ -712,7 +706,7 @@
         <div class="test-name">POST送信（アンケート回答・お問い合わせなど）</div>
         <form method="POST" action="https://httpbin.org/post">
           <input type="text" name="test_field" value="テストデータ" placeholder="入力内容">
-          <input type="submit" value="▶ POST で送信する">
+          <input type="submit" value="POST で送信する">
         </form>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
@@ -727,7 +721,7 @@
         <div class="test-name">GET送信（検索フォーム・フィルタなど）</div>
         <form method="GET" action="https://httpbin.org/get">
           <input type="text" name="search" value="kauche" placeholder="検索キーワード">
-          <input type="submit" value="▶ GET で送信する">
+          <input type="submit" value="GET で送信する">
         </form>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
