@@ -477,6 +477,25 @@
           <tr><td class="condition">全条件共通</td><td><span class="badge badge-webview">そのまま遷移</span> 2秒後に遷移する（ブロックされない）</td></tr>
         </table>
       </div>
+
+      <div class="test-row">
+        <div class="test-name">アコーディオン（ページ内 JS 操作）</div>
+        <div style="border:2px solid #af52de; border-radius:12px; overflow:hidden; margin-bottom:12px;">
+          <button onclick="var c=this.nextElementSibling; c.style.display=c.style.display==='none'?'block':'none'; this.textContent=c.style.display==='none'?'▶ よくある質問（タップで開く）':'▼ よくある質問（タップで閉じる）'" style="width:100%; padding:14px 16px; background:#f2f2f7; border:none; font-size:15px; font-weight:700; text-align:left; cursor:pointer; font-family:inherit;">▶ よくある質問（タップで開く）</button>
+          <div style="display:none; padding:16px; font-size:14px; line-height:1.8;">
+            <p><strong>Q. これはアコーディオンですか？</strong></p>
+            <p>A. はい、JS で開閉する UI です。ページ遷移は発生しません。</p>
+            <hr style="margin:12px 0; border:none; border-top:1px solid #e5e5ea;">
+            <p><strong>Q. タイマー中でも動きますか？</strong></p>
+            <p>A. はい。ナビゲーション制御の対象外なので常に動作するはずです。</p>
+          </div>
+        </div>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">全条件共通</td><td><span class="badge badge-scroll">開閉</span> 常にタップで開閉できる（ページ遷移なし）</td></tr>
+        </table>
+        <div class="info-note">ページ内の DOM 操作のみなので、ナビゲーション制御の影響を受けません</div>
+      </div>
     </div>
   </div>
 
