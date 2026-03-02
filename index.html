@@ -3,207 +3,277 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LP閲覧クエスト ナビゲーション制御テスト</title>
+  <title>LP閲覧クエスト テストページ</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
-      line-height: 1.5;
+      line-height: 1.6;
       color: #1a1a1a;
-      background: #f0f2f5;
-      padding: 0 0 100px;
+      background: #f5f5f7;
+      padding-bottom: 80px;
     }
 
+    /* ヘッダー */
     header {
       background: linear-gradient(135deg, #007aff, #5856d6);
       color: #fff;
-      padding: 20px 16px;
+      padding: 24px 16px;
       text-align: center;
     }
+    header h1 { font-size: 20px; font-weight: 800; }
+    header p { font-size: 13px; opacity: 0.85; margin-top: 6px; line-height: 1.5; }
 
-    header h1 { font-size: 18px; font-weight: 700; }
-    header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
-
-    .steps {
+    /* テスト手順カード */
+    .how-to {
       background: #fff;
       margin: 12px;
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-left: 5px solid #007aff;
     }
-
-    .steps h2 {
-      font-size: 15px;
-      font-weight: 700;
+    .how-to h2 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #007aff; }
+    .how-to .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
       margin-bottom: 10px;
+    }
+    .how-to .step-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: #007aff;
+      color: #fff;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-
-    .steps ol {
-      padding-left: 22px;
+      justify-content: center;
       font-size: 14px;
-      color: #333;
+      font-weight: 700;
     }
+    .how-to .step-text { font-size: 14px; padding-top: 3px; }
+    .how-to .step-text strong { color: #ff3b30; }
 
-    .steps li { margin-bottom: 6px; }
-    .steps li strong { color: #007aff; }
+    /* 凡例 */
+    .legend {
+      background: #fff;
+      margin: 0 12px 12px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .legend h3 { font-size: 13px; font-weight: 700; color: #666; margin-bottom: 10px; }
+    .legend-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 12px;
+      font-size: 13px;
+    }
+    .legend-grid .badge { justify-self: start; }
 
+    /* バッジ */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-block { background: #ff3b30; color: #fff; }
+    .badge-safari { background: #007aff; color: #fff; }
+    .badge-webview { background: #34c759; color: #fff; }
+    .badge-app { background: #af52de; color: #fff; }
+    .badge-free { background: #8e8e93; color: #fff; }
+    .badge-scroll { background: #30d158; color: #fff; }
+    .badge-warn { background: #ff9500; color: #fff; }
+
+    /* 目次 */
     .toc {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 8px;
       padding: 0 12px;
       margin-bottom: 12px;
     }
-
     .toc a {
-      flex: 1;
-      min-width: calc(33% - 8px);
       text-align: center;
-      padding: 10px 8px;
+      padding: 12px 6px;
       background: #fff;
       color: #333;
       text-decoration: none;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    .toc a:active { background: #e9ecef; }
-
-    .section {
-      margin: 12px;
       border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      display: block;
+    }
+    .toc a:active { transform: scale(0.97); }
+
+    /* テストカード */
+    .test-card {
+      margin: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
-
-    .section-header {
-      padding: 12px 16px;
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .section-header.anchor { background: #34c759; }
-    .section-header.get { background: #007aff; }
-    .section-header.form { background: #ff9500; }
-    .section-header.js { background: #af52de; }
-    .section-header.deeplink { background: #ff3b30; }
-    .section-header.special { background: #8e8e93; }
-
-    .section-body { background: #fff; }
-
-    .test-item {
+    .card-header {
       padding: 14px 16px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-header.green { background: #34c759; }
+    .card-header.blue { background: #007aff; }
+    .card-header.orange { background: #ff9500; }
+    .card-header.purple { background: #af52de; }
+    .card-header.red { background: #ff3b30; }
+    .card-header.gray { background: #8e8e93; }
+
+    .card-body { background: #fff; }
+
+    .test-row {
+      padding: 16px;
       border-bottom: 1px solid #f0f0f0;
     }
+    .test-row:last-child { border-bottom: none; }
 
-    .test-item:last-child { border-bottom: none; }
-
-    .test-label {
-      font-size: 13px;
+    .test-name {
+      font-size: 15px;
       font-weight: 700;
-      color: #666;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       margin-bottom: 10px;
+      color: #333;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 20px;
+    /* ボタン */
+    .action-btn {
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
       color: #fff;
       text-decoration: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
       border: none;
       cursor: pointer;
       font-family: inherit;
-      min-height: 44px;
+      min-height: 48px;
+      text-align: center;
+      margin-bottom: 12px;
     }
+    .action-btn:active { opacity: 0.85; transform: scale(0.98); }
+    .action-btn.green { background: #34c759; }
+    .action-btn.blue { background: #007aff; }
+    .action-btn.orange { background: #ff9500; }
+    .action-btn.purple { background: #af52de; }
+    .action-btn.red { background: #ff3b30; }
+    .action-btn.gray { background: #8e8e93; }
 
-    .btn:active { opacity: 0.8; }
-    .btn.green { background: #34c759; }
-    .btn.blue { background: #007aff; }
-    .btn.orange { background: #ff9500; }
-    .btn.purple { background: #af52de; }
-    .btn.red { background: #ff3b30; }
-    .btn.gray { background: #8e8e93; }
+    .action-btn-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .action-btn-row .action-btn { flex: 1; margin-bottom: 0; }
 
-    .expect {
+    /* 期待動作テーブル */
+    .expect-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #e5e5ea;
+    }
+    .expect-table th {
+      background: #f2f2f7;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 700;
+      color: #666;
       font-size: 12px;
-      color: #555;
-      background: #f8f9fa;
-      padding: 8px 12px;
-      border-radius: 8px;
-      line-height: 1.7;
+      border-bottom: 1px solid #e5e5ea;
     }
-
-    .expect .tag {
-      display: inline-block;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-size: 11px;
+    .expect-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+    .expect-table tr:last-child td { border-bottom: none; }
+    .expect-table .condition {
       font-weight: 600;
-      margin-right: 2px;
+      white-space: nowrap;
+      width: 110px;
     }
 
-    .tag.timer { background: #ffecec; color: #ff3b30; }
-    .tag.after { background: #e3f2fd; color: #007aff; }
-    .tag.off { background: #f0f0f0; color: #666; }
-
-    input[type="text"] {
+    /* 注意書き */
+    .note {
+      background: #fff3cd;
+      border-left: 4px solid #ff9500;
       padding: 10px 12px;
-      border: 1px solid #d1d1d6;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: #664d03;
+      margin-top: 8px;
+    }
+
+    .info-note {
+      background: #e8f4fd;
+      border-left: 4px solid #007aff;
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 13px;
+      color: #0a4a7a;
+      margin-top: 8px;
+    }
+
+    /* フォーム */
+    input[type="text"] {
+      padding: 12px;
+      border: 2px solid #e5e5ea;
       border-radius: 10px;
       font-size: 15px;
       width: 100%;
       margin-bottom: 8px;
       font-family: inherit;
     }
-
     input[type="submit"] {
-      padding: 12px 20px;
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
       border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
       color: #fff;
       cursor: pointer;
       font-family: inherit;
-      min-height: 44px;
+      min-height: 48px;
+      margin-bottom: 12px;
     }
 
+    /* トップへ戻る */
     .back-to-top {
       position: fixed;
       bottom: 20px;
       right: 16px;
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       background: #007aff;
       color: #fff;
       text-decoration: none;
-      border-radius: 22px;
-      font-size: 20px;
+      border-radius: 24px;
+      font-size: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 2px 10px rgba(0,122,255,0.4);
+      box-shadow: 0 3px 12px rgba(0,122,255,0.4);
     }
 
     form { display: block; }
@@ -212,245 +282,270 @@
 <body id="top">
 
   <header>
-    <h1>LP閲覧クエスト ナビゲーション制御テスト</h1>
-    <p>各ボタンをタップして期待動作を確認してください</p>
+    <h1>LP閲覧クエスト<br>ナビゲーション制御テスト</h1>
+    <p>ボタンをタップして、<br>条件ごとの動作が正しいか確認してください</p>
   </header>
 
-  <div class="steps">
-    <h2>📋 確認手順</h2>
-    <ol>
-      <li>LP閲覧クエスト画面でこのページを表示</li>
-      <li><strong>30秒タイマー中</strong>に各ボタンをタップ</li>
-      <li><strong>30秒経過後</strong>に各ボタンをタップ</li>
-      <li><strong>ABTestフラグOFF</strong>で全ボタンが自由に動作するか確認</li>
-    </ol>
+  <!-- テスト手順 -->
+  <div class="how-to">
+    <h2>テスト手順</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">LP閲覧クエスト画面でこのページを開く</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>30秒カウントダウン中</strong>に各ボタンをタップ</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>カウントダウン終了後</strong>に各ボタンをタップ</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">デバッグ設定で<strong>フラグOFF</strong>にして全ボタンをタップ</div>
+    </div>
   </div>
 
+  <!-- 凡例 -->
+  <div class="legend">
+    <h3>期待動作の見方</h3>
+    <div class="legend-grid">
+      <span class="badge badge-block">ブロック</span>
+      <span>タップしても移動せず「N秒後に…」メッセージが出る</span>
+      <span class="badge badge-safari">Safari表示</span>
+      <span>画面下からSafariのブラウザが開く</span>
+      <span class="badge badge-webview">そのまま遷移</span>
+      <span>今の画面内でページが切り替わる</span>
+      <span class="badge badge-app">アプリ遷移</span>
+      <span>カウシェアプリ内の別画面に切り替わる</span>
+      <span class="badge badge-scroll">スクロール</span>
+      <span>ページ内の別の位置に移動する（画面遷移なし）</span>
+      <span class="badge badge-free">自由に動作</span>
+      <span>フラグOFF時。制御なしで普通にタップできる</span>
+    </div>
+  </div>
+
+  <!-- 目次 -->
   <div class="toc">
-    <a href="#section1">🔗 アンカー</a>
-    <a href="#section2">🌐 GET</a>
-    <a href="#section3">📝 フォーム</a>
-    <a href="#section4">⚡ JS遷移</a>
-    <a href="#section5">📱 Deep Link</a>
-    <a href="#section6">📞 特殊</a>
+    <a href="#sec-anchor">ページ内<br>リンク</a>
+    <a href="#sec-link">外部<br>リンク</a>
+    <a href="#sec-form">フォーム<br>送信</a>
+    <a href="#sec-js">JS<br>遷移</a>
+    <a href="#sec-deep">ディープ<br>リンク</a>
+    <a href="#sec-special">電話・<br>メール</a>
   </div>
 
-  <!-- Section 1: Anchor -->
-  <div class="section" id="section1">
-    <div class="section-header anchor">🔗 Section 1: アンカーリンク</div>
-    <div class="section-body">
-      <div class="test-item">
-        <div class="test-label">ページ内リンク</div>
-        <div class="btn-row">
-          <a href="#section2" class="btn green">Section 2へ</a>
-          <a href="#section3" class="btn green">Section 3へ</a>
-          <a href="#section4" class="btn green">Section 4へ</a>
-          <a href="#section5" class="btn green">Section 5へ</a>
-          <a href="#section6" class="btn green">Section 6へ</a>
+  <!-- ==================== -->
+  <!-- 1. ページ内リンク -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-anchor">
+    <div class="card-header green">1. ページ内リンク（アンカー）</div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">同じページ内を移動する</div>
+        <div class="action-btn-row">
+          <a href="#sec-link" class="action-btn green">外部リンクへ</a>
+          <a href="#sec-form" class="action-btn green">フォームへ</a>
+          <a href="#sec-deep" class="action-btn green">ディープリンクへ</a>
         </div>
-        <div class="expect">
-          <span class="tag timer">タイマー中</span> 許可 &nbsp;
-          <span class="tag after">タイマー後</span> 許可 &nbsp;
-          <span class="tag off">フラグOFF</span> 許可<br>
-          → 常にページ内スクロールする
-        </div>
-      </div>
-
-      <div class="test-item">
-        <div class="test-label">トップに戻る</div>
-        <div class="btn-row">
-          <a href="#top" class="btn green">トップに戻る</a>
-        </div>
-        <div class="expect">
-          → 常に許可。ページ上部にスクロールする。
-        </div>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
+        </table>
       </div>
     </div>
   </div>
 
-  <!-- Section 2: GET -->
-  <div class="section" id="section2">
-    <div class="section-header get">🌐 Section 2: GETリンク</div>
-    <div class="section-body">
-      <div class="test-item">
-        <div class="test-label">外部ドメイン</div>
-        <div class="btn-row">
-          <a href="https://example.com" class="btn blue">example.com</a>
-          <a href="https://www.google.com" class="btn blue">google.com</a>
-        </div>
-        <div class="expect">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
-          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
-        </div>
+  <!-- ==================== -->
+  <!-- 2. 外部リンク -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-link">
+    <div class="card-header blue">2. 外部リンク（通常のリンク）</div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">外部サイトへのリンク</div>
+        <a href="https://example.com" class="action-btn blue">example.com を開く</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 「N秒後にリンクを開けるようになります」と表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> 画面下からSafariブラウザで開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span> そのままページが切り替わる</td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">同一ドメイン別パス</div>
-        <div class="btn-row">
-          <a href="/other-page" class="btn blue">同一ドメイン /other-page</a>
-        </div>
-        <div class="expect">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
-          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
-        </div>
+      <div class="test-row">
+        <div class="test-name">Google検索（別の外部サイト）</div>
+        <a href="https://www.google.com" class="action-btn blue">google.com を開く</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">クエリパラメータ付き</div>
-        <div class="btn-row">
-          <a href="https://example.com/search?q=kauche&lang=ja" class="btn blue">クエリ付きリンク</a>
-        </div>
-        <div class="expect">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
-          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
-        </div>
+      <div class="test-row">
+        <div class="test-name">同じサイトの別ページ</div>
+        <a href="/other-page" class="action-btn blue">同じサイトの /other-page</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">フラグメント + クエリ付き</div>
-        <div class="btn-row">
-          <a href="https://example.com/page?ref=test#heading" class="btn blue">クエリ + フラグメント</a>
-        </div>
-        <div class="expect">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
-          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
-        </div>
+      <div class="test-row">
+        <div class="test-name">パラメータ付きリンク</div>
+        <a href="https://example.com/search?q=kauche&lang=ja" class="action-btn blue">パラメータ付きで開く</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
     </div>
   </div>
 
-  <!-- Section 3: Form -->
-  <div class="section" id="section3">
-    <div class="section-header form">📝 Section 3: フォーム</div>
-    <div class="section-body">
-      <div class="test-item">
-        <div class="test-label">POSTフォーム</div>
+  <!-- ==================== -->
+  <!-- 3. フォーム送信 -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-form">
+    <div class="card-header orange">3. フォーム送信</div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">POST送信（購入フォームなどを想定）</div>
         <form method="POST" action="https://httpbin.org/post">
-          <input type="text" name="test_field" value="hello" placeholder="テストデータ">
-          <input type="submit" value="POST送信" style="background:#ff9500; width:100%;">
+          <input type="text" name="test_field" value="テストデータ" placeholder="入力内容">
+          <input type="submit" value="POST で送信する" style="background:#ff9500;">
         </form>
-        <div class="expect" style="margin-top:10px;">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> WebView内で処理（Safariは開かない）<br>
-          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
-        </div>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 送信されず、メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-webview">そのまま遷移</span> 画面内で送信結果ページに移動（Safariは開かない）</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">GETフォーム（比較用）</div>
+      <div class="test-row">
+        <div class="test-name">GET送信（検索フォームなどを想定）</div>
         <form method="GET" action="https://httpbin.org/get">
-          <input type="text" name="search" value="kauche" placeholder="検索クエリ">
-          <input type="submit" value="GET送信" style="background:#007aff; width:100%;">
+          <input type="text" name="search" value="kauche" placeholder="検索キーワード">
+          <input type="submit" value="GET で送信する" style="background:#007aff;">
         </form>
-        <div class="expect" style="margin-top:10px;">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> SFSafariViewControllerで開く<br>
-          <span class="tag off">フラグOFF</span> WebView内で自由に遷移
-        </div>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 送信されず、メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで検索結果が開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
     </div>
   </div>
 
-  <!-- Section 4: JS -->
-  <div class="section" id="section4">
-    <div class="section-header js">⚡ Section 4: JSナビゲーション</div>
-    <div class="section-body">
-      <div class="test-item">
-        <div class="test-label">window.location.href</div>
-        <div class="btn-row">
-          <button class="btn purple" onclick="window.location.href='https://example.com';">
-            JS: location.href で遷移
-          </button>
-        </div>
-        <div class="expect">
-          → 非ユーザー操作として扱われ、許可される
-        </div>
+  <!-- ==================== -->
+  <!-- 4. JavaScript遷移 -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-js">
+    <div class="card-header purple">4. JavaScript による自動遷移</div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">即時の自動遷移</div>
+        <button class="action-btn purple" onclick="window.location.href='https://example.com';">
+          タップすると自動遷移する
+        </button>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-webview">そのまま遷移</span> 自動遷移はブロックされない</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-webview">そのまま遷移</span> 自動遷移はブロックされない</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
+        <div class="info-note">JS による自動的なページ移動は、ユーザーの手動タップとは区別されるため常に許可されます</div>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">setTimeout（2秒遅延）</div>
-        <div class="btn-row">
-          <button class="btn purple" onclick="this.textContent='2秒後に遷移します...'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
-            JS: 2秒遅延で遷移
-          </button>
-        </div>
-        <div class="expect">
-          → 非ユーザー操作として扱われ、2秒後に遷移が許可される
-        </div>
-      </div>
-
-      <div class="test-item">
-        <div class="test-label">window.open（新規ウィンドウ）</div>
-        <div class="btn-row">
-          <button class="btn purple" onclick="window.open('https://example.com', '_blank');">
-            JS: window.open
-          </button>
-        </div>
-        <div class="expect">
-          → 挙動確認用。ポップアップブロッカーでブロックされる可能性あり
-        </div>
+      <div class="test-row">
+        <div class="test-name">2秒遅延の自動遷移</div>
+        <button class="action-btn purple" onclick="this.textContent='2秒後に遷移します...'; this.style.opacity='0.6'; setTimeout(function(){ window.location.href='https://example.com'; }, 2000);">
+          タップすると2秒後に自動遷移する
+        </button>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">全条件共通</td><td><span class="badge badge-webview">そのまま遷移</span> 2秒後に遷移する（ブロックされない）</td></tr>
+        </table>
       </div>
     </div>
   </div>
 
-  <!-- Section 5: Deep Link -->
-  <div class="section" id="section5">
-    <div class="section-header deeplink">📱 Section 5: ディープリンク</div>
-    <div class="section-body">
-      <div class="test-item">
-        <div class="test-label">kauche-internal-dev://</div>
-        <div class="btn-row">
-          <a href="kauche-internal-dev://farm/quests/post_view_quest" class="btn red">internal: 投稿閲覧クエスト</a>
-        </div>
-        <div class="expect">
-          ⚠️ WKWebViewが非HTTP スキームの decidePolicyFor を呼ばないため、反応しない可能性あり
-        </div>
+  <!-- ==================== -->
+  <!-- 5. ディープリンク -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-deep">
+    <div class="card-header red">5. ディープリンク（アプリ内遷移）</div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">kauche-dev:// マイページ</div>
+        <a href="kauche-dev://app/tab/mypage" class="action-btn red">マイページへ移動</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、アプリ内遷移しない</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> マイページに移動する</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">kauche-dev://</div>
-        <div class="btn-row">
-          <a href="kauche-dev://app/tab/mypage" class="btn red">kauche-dev: マイページ</a>
-        </div>
-        <div class="expect">
-          <span class="tag timer">タイマー中</span> ブロック + メッセージ表示<br>
-          <span class="tag after">タイマー後</span> OS経由でアプリ内遷移<br>
-          <span class="tag off">フラグOFF</span> 既存挙動（WebView内で処理）
-        </div>
+      <div class="test-row">
+        <div class="test-name">kauche-internal-dev:// 投稿閲覧クエスト</div>
+        <a href="kauche-internal-dev://farm/quests/post_view_quest" class="action-btn red">投稿閲覧クエストへ移動</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">全条件共通</td><td><span class="badge badge-warn">反応なし</span> タップしても何も起きない（既知の制限）</td></tr>
+        </table>
+        <div class="note">WebView の技術的制限により、このタイプのリンクは検知できません。タップしても何も起きないのが正常です。</div>
       </div>
     </div>
   </div>
 
-  <!-- Section 6: Special -->
-  <div class="section" id="section6">
-    <div class="section-header special">📞 Section 6: 特殊プロトコル</div>
-    <div class="section-body">
-      <div class="test-item">
-        <div class="test-label">電話発信</div>
-        <div class="btn-row">
-          <a href="tel:090-0000-0000" class="btn gray">tel: 090-0000-0000</a>
-        </div>
-        <div class="expect">→ 挙動確認用。電話発信ダイアログが表示される可能性あり</div>
+  <!-- ==================== -->
+  <!-- 6. 電話・メール・SMS -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-special">
+    <div class="card-header gray">6. 電話・メール・SMS</div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">電話をかける</div>
+        <a href="tel:090-0000-0000" class="action-btn gray">090-0000-0000 に電話</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> 電話アプリが開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">メール作成</div>
-        <div class="btn-row">
-          <a href="mailto:test@example.com" class="btn gray">mailto: test@example.com</a>
-        </div>
-        <div class="expect">→ 挙動確認用。メールアプリが開く可能性あり</div>
+      <div class="test-row">
+        <div class="test-name">メールを送る</div>
+        <a href="mailto:test@example.com" class="action-btn gray">test@example.com にメール</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> メールアプリが開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
 
-      <div class="test-item">
-        <div class="test-label">SMS送信</div>
-        <div class="btn-row">
-          <a href="sms:090-0000-0000" class="btn gray">sms: 090-0000-0000</a>
-        </div>
-        <div class="expect">→ 挙動確認用。メッセージアプリが開く可能性あり</div>
+      <div class="test-row">
+        <div class="test-name">SMSを送る</div>
+        <a href="sms:090-0000-0000" class="action-btn gray">090-0000-0000 にSMS</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> メッセージアプリが開く</td></tr>
+          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
       </div>
     </div>
   </div>
