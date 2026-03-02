@@ -448,7 +448,6 @@
     }
     .js-demo-trigger:active { background: var(--slate-200); }
     .js-demo-content {
-      display: none;
       padding: 16px;
       font-size: 14px;
       line-height: 1.8;
@@ -506,7 +505,6 @@
 
     /* ====== モーダル ====== */
     .modal-overlay {
-      display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -757,7 +755,7 @@
         <div class="test-name">アコーディオン（開閉UI）</div>
         <div class="js-demo">
           <button class="js-demo-trigger" onclick="var c=this.nextElementSibling; c.style.display=c.style.display==='none'?'block':'none'; this.textContent=c.style.display==='none'?'▶ よくある質問（タップで開く）':'▼ よくある質問（タップで閉じる）'">▶ よくある質問（タップで開く）</button>
-          <div class="js-demo-content">
+          <div class="js-demo-content" style="display:none">
             <p><strong>Q. これはアコーディオンですか？</strong></p>
             <p>A. はい、JS で開閉する UI です。ページ遷移は発生しません。</p>
             <hr style="margin:12px 0; border:none; border-top:1px solid var(--slate-200);">
@@ -804,7 +802,7 @@
   </div>
 
   <!-- モーダル -->
-  <div id="test-modal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
+  <div id="test-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
     <div class="modal-card">
       <h3>モーダルダイアログ</h3>
       <p>これはJS で表示されるモーダルです。<br>ページ遷移は発生しません。</p>
