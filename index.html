@@ -5,285 +5,549 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LP閲覧クエスト テストページ</title>
   <style>
+    :root {
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --red-500: #ef4444;
+      --red-50: #fef2f2;
+      --blue-500: #3b82f6;
+      --blue-50: #eff6ff;
+      --green-500: #22c55e;
+      --green-50: #f0fdf4;
+      --amber-500: #f59e0b;
+      --amber-50: #fffbeb;
+      --purple-500: #a855f7;
+      --purple-50: #faf5ff;
+      --rose-500: #f43f5e;
+      --neutral-500: #737373;
+      --neutral-50: #fafafa;
+      --radius: 14px;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
-      color: #1a1a1a;
-      background: #f5f5f7;
+      color: var(--slate-900);
+      background: var(--slate-100);
       padding-bottom: 80px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ヘッダー */
+    /* ====== ヘッダー ====== */
     header {
-      background: linear-gradient(135deg, #007aff, #5856d6);
+      background: var(--slate-900);
       color: #fff;
-      padding: 24px 16px;
-      text-align: center;
+      padding: 28px 20px 24px;
+      position: relative;
+      overflow: hidden;
     }
-    header h1 { font-size: 20px; font-weight: 800; }
-    header p { font-size: 13px; opacity: 0.85; margin-top: 6px; line-height: 1.5; }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -30px;
+      width: 160px;
+      height: 160px;
+      border: 3px solid rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -20px;
+      width: 120px;
+      height: 120px;
+      border: 3px solid rgba(255,255,255,0.04);
+      border-radius: 50%;
+    }
+    header .label {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.8);
+    }
+    header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.3;
+      position: relative;
+    }
+    header p {
+      font-size: 13px;
+      opacity: 0.6;
+      margin-top: 8px;
+      line-height: 1.5;
+      position: relative;
+    }
 
-    /* テスト手順カード */
+    /* ====== テスト手順 ====== */
     .how-to {
       background: #fff;
-      margin: 12px;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      border-left: 5px solid #007aff;
+      margin: 14px 14px 10px;
+      border-radius: var(--radius);
+      padding: 18px;
+      border: 1px solid var(--slate-200);
     }
-    .how-to h2 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #007aff; }
+    .how-to h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+    }
     .how-to .step {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 10px;
     }
+    .how-to .step:last-child { margin-bottom: 0; }
     .how-to .step-num {
       flex-shrink: 0;
-      width: 28px; height: 28px;
-      background: #007aff;
+      width: 26px; height: 26px;
+      background: var(--slate-900);
       color: #fff;
-      border-radius: 50%;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
     }
-    .how-to .step-text { font-size: 14px; padding-top: 3px; }
-    .how-to .step-text strong { color: #ff3b30; }
+    .how-to .step-text {
+      font-size: 14px;
+      padding-top: 2px;
+      color: var(--slate-700);
+    }
+    .how-to .step-text strong { color: var(--red-500); font-weight: 700; }
 
-    /* 凡例 */
+    /* ====== 凡例 ====== */
     .legend {
       background: #fff;
-      margin: 0 12px 12px;
-      border-radius: 16px;
-      padding: 14px 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      margin: 0 14px 10px;
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      border: 1px solid var(--slate-200);
     }
-    .legend h3 { font-size: 13px; font-weight: 700; color: #666; margin-bottom: 10px; }
+    .legend h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
     .legend-grid {
       display: grid;
       grid-template-columns: auto 1fr;
-      gap: 6px 12px;
+      gap: 8px 14px;
       font-size: 13px;
+      color: var(--slate-700);
+      align-items: center;
     }
-    .legend-grid .badge { justify-self: start; }
 
-    /* バッジ */
+    /* ====== バッジ ====== */
     .badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 11px;
       font-weight: 700;
       white-space: nowrap;
+      letter-spacing: 0.3px;
     }
-    .badge-block { background: #ff3b30; color: #fff; }
-    .badge-safari { background: #007aff; color: #fff; }
-    .badge-webview { background: #34c759; color: #fff; }
-    .badge-app { background: #af52de; color: #fff; }
-    .badge-free { background: #8e8e93; color: #fff; }
-    .badge-scroll { background: #30d158; color: #fff; }
-    .badge-warn { background: #ff9500; color: #fff; }
+    .badge-block { background: var(--red-500); color: #fff; }
+    .badge-safari { background: var(--blue-500); color: #fff; }
+    .badge-webview { background: var(--green-500); color: #fff; }
+    .badge-app { background: var(--purple-500); color: #fff; }
+    .badge-free { background: var(--slate-400); color: #fff; }
+    .badge-scroll { background: var(--green-500); color: #fff; }
+    .badge-warn { background: var(--amber-500); color: #fff; }
 
-    /* 目次 */
+    /* ====== 目次 ====== */
     .toc {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 8px;
-      padding: 0 12px;
-      margin-bottom: 12px;
+      padding: 0 14px;
+      margin-bottom: 14px;
     }
     .toc a {
       text-align: center;
-      padding: 12px 6px;
+      padding: 10px 4px;
       background: #fff;
-      color: #333;
+      color: var(--slate-700);
       text-decoration: none;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--slate-200);
       display: block;
+      transition: background 0.15s;
     }
-    .toc a:active { transform: scale(0.97); }
+    .toc a:active { background: var(--slate-100); transform: scale(0.97); }
 
-    /* テストカード */
+    /* ====== テストカード ====== */
     .test-card {
-      margin: 12px;
-      border-radius: 16px;
+      margin: 14px;
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      background: #fff;
+      border: 1px solid var(--slate-200);
     }
+
     .card-header {
-      padding: 14px 16px;
-      color: #fff;
-      font-size: 16px;
+      padding: 16px 18px;
+      font-size: 15px;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      border-bottom: 1px solid var(--slate-200);
+      background: var(--slate-50);
+      color: var(--slate-900);
     }
-    .card-header.green { background: #34c759; }
-    .card-header.blue { background: #007aff; }
-    .card-header.orange { background: #ff9500; }
-    .card-header.purple { background: #af52de; }
-    .card-header.red { background: #ff3b30; }
-    .card-header.gray { background: #8e8e93; }
-
-    .card-body { background: #fff; }
+    .card-header .sec-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .sec-num.green { background: var(--green-500); }
+    .sec-num.blue { background: var(--blue-500); }
+    .sec-num.orange { background: var(--amber-500); }
+    .sec-num.purple { background: var(--purple-500); }
+    .sec-num.red { background: var(--rose-500); }
+    .sec-num.gray { background: var(--neutral-500); }
 
     /* ユースケース説明 */
     .usecase-desc {
-      padding: 12px 16px;
-      background: #f8f8fa;
-      border-bottom: 1px solid #e5e5ea;
-      font-size: 13px;
-      color: #555;
+      padding: 12px 18px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      font-size: 12px;
+      color: var(--slate-500);
       line-height: 1.6;
     }
-    .usecase-desc strong {
-      color: #333;
+    .usecase-desc::before {
+      content: '💡 ';
     }
 
+    .card-body { background: #fff; }
+
     .test-row {
-      padding: 16px;
-      border-bottom: 1px solid #f0f0f0;
+      padding: 18px;
+      border-bottom: 1px solid var(--slate-100);
     }
     .test-row:last-child { border-bottom: none; }
 
     .test-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      margin-bottom: 10px;
-      color: #333;
+      margin-bottom: 12px;
+      color: var(--slate-800);
     }
 
-    /* ボタン — シンプルなアウトライン風 */
+    /* ====== テスト対象ボタン ====== */
     .action-btn {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       width: 100%;
-      padding: 14px 20px;
-      color: #333;
+      padding: 14px 16px;
+      color: var(--slate-700);
       text-decoration: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      border: 2px solid #ccc;
-      background: #fff;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 2px dashed var(--slate-300, #cbd5e1);
+      background: var(--slate-50);
       cursor: pointer;
       font-family: inherit;
       min-height: 48px;
       text-align: center;
       margin-bottom: 12px;
+      transition: all 0.15s;
+      position: relative;
     }
-    .action-btn:active { opacity: 0.7; transform: scale(0.98); background: #f0f0f0; }
+    .action-btn::before {
+      content: '▶';
+      font-size: 10px;
+      color: var(--slate-400);
+    }
+    .action-btn:active {
+      background: var(--slate-200);
+      border-color: var(--slate-400);
+      transform: scale(0.98);
+    }
 
     .action-btn-row {
       display: flex;
       gap: 8px;
       margin-bottom: 12px;
     }
-    .action-btn-row .action-btn { flex: 1; margin-bottom: 0; font-size: 14px; padding: 12px 8px; }
+    .action-btn-row .action-btn {
+      flex: 1;
+      margin-bottom: 0;
+      font-size: 13px;
+      padding: 12px 6px;
+    }
 
-    /* 期待動作テーブル */
+    /* ====== 期待動作テーブル ====== */
     .expect-table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #e5e5ea;
+      border: 1px solid var(--slate-200);
     }
     .expect-table th {
-      background: #f2f2f7;
-      padding: 8px 10px;
+      background: var(--slate-100);
+      padding: 8px 12px;
       text-align: left;
       font-weight: 700;
-      color: #666;
-      font-size: 12px;
-      border-bottom: 1px solid #e5e5ea;
+      color: var(--slate-500);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border-bottom: 1px solid var(--slate-200);
     }
     .expect-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid #f0f0f0;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--slate-100);
       vertical-align: middle;
+      color: var(--slate-700);
     }
     .expect-table tr:last-child td { border-bottom: none; }
+
+    /* 条件ごとの行ハイライト */
+    .expect-table tr.row-block td { border-left: 3px solid var(--red-500); background: var(--red-50); }
+    .expect-table tr.row-safari td { border-left: 3px solid var(--blue-500); background: var(--blue-50); }
+    .expect-table tr.row-webview td { border-left: 3px solid var(--green-500); background: var(--green-50); }
+    .expect-table tr.row-app td { border-left: 3px solid var(--purple-500); background: var(--purple-50); }
+    .expect-table tr.row-free td { border-left: 3px solid var(--slate-400); background: var(--neutral-50); }
+    .expect-table tr.row-scroll td { border-left: 3px solid var(--green-500); background: var(--green-50); }
+    .expect-table tr.row-warn td { border-left: 3px solid var(--amber-500); background: var(--amber-50); }
+
     .expect-table .condition {
-      font-weight: 600;
+      font-weight: 700;
       white-space: nowrap;
-      width: 110px;
+      width: 100px;
+      font-size: 12px;
+      color: var(--slate-600, #475569);
     }
 
-    /* 注意書き */
+    /* ====== 注意書き ====== */
     .note {
-      background: #fff3cd;
-      border-left: 4px solid #ff9500;
-      padding: 10px 12px;
+      background: var(--amber-50);
+      border-left: 3px solid var(--amber-500);
+      padding: 10px 14px;
       border-radius: 0 8px 8px 0;
-      font-size: 13px;
-      color: #664d03;
-      margin-top: 8px;
+      font-size: 12px;
+      color: #92400e;
+      margin-top: 10px;
+      line-height: 1.5;
     }
 
     .info-note {
-      background: #e8f4fd;
-      border-left: 4px solid #007aff;
-      padding: 10px 12px;
+      background: var(--blue-50);
+      border-left: 3px solid var(--blue-500);
+      padding: 10px 14px;
       border-radius: 0 8px 8px 0;
-      font-size: 13px;
-      color: #0a4a7a;
-      margin-top: 8px;
+      font-size: 12px;
+      color: #1e40af;
+      margin-top: 10px;
+      line-height: 1.5;
     }
 
-    /* フォーム */
+    /* ====== フォーム ====== */
     input[type="text"] {
-      padding: 12px;
-      border: 2px solid #e5e5ea;
+      padding: 12px 14px;
+      border: 1px solid var(--slate-200);
       border-radius: 10px;
       font-size: 15px;
       width: 100%;
       margin-bottom: 8px;
       font-family: inherit;
+      background: var(--slate-50);
+      color: var(--slate-700);
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
     }
     input[type="submit"] {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      padding: 14px 20px;
-      border: 2px solid #ccc;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #333;
-      background: #fff;
+      padding: 14px 16px;
+      border: 2px dashed var(--slate-300, #cbd5e1);
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--slate-700);
+      background: var(--slate-50);
       cursor: pointer;
       font-family: inherit;
       min-height: 48px;
       margin-bottom: 12px;
+      transition: all 0.15s;
     }
-    input[type="submit"]:active { opacity: 0.7; background: #f0f0f0; }
+    input[type="submit"]:active {
+      background: var(--slate-200);
+      border-color: var(--slate-400);
+    }
 
-    /* トップへ戻る */
+    /* ====== JS操作内部UI ====== */
+    .js-demo {
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .js-demo-trigger {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--slate-50);
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      color: var(--slate-700);
+      transition: background 0.15s;
+    }
+    .js-demo-trigger:active { background: var(--slate-200); }
+    .js-demo-content {
+      display: none;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.8;
+      border-top: 1px solid var(--slate-200);
+      color: var(--slate-600, #475569);
+    }
+    .js-demo-content p { margin-bottom: 4px; }
+    .js-demo-content strong { color: var(--slate-800); }
+
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .tab-btn.active {
+      background: var(--slate-900);
+      color: #fff;
+    }
+    .tab-btn:not(.active) {
+      background: var(--slate-50);
+      color: var(--slate-500);
+    }
+    .tab-content {
+      padding: 16px;
+      font-size: 14px;
+      color: var(--slate-600, #475569);
+    }
+
+    /* ====== トップへ戻る ====== */
     .back-to-top {
       position: fixed;
       bottom: 20px;
       right: 16px;
-      width: 48px;
-      height: 48px;
-      background: #007aff;
+      width: 44px;
+      height: 44px;
+      background: var(--slate-900);
       color: #fff;
       text-decoration: none;
-      border-radius: 24px;
-      font-size: 22px;
+      border-radius: 12px;
+      font-size: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 3px 12px rgba(0,122,255,0.4);
+      box-shadow: 0 4px 16px rgba(15,23,42,0.3);
+    }
+
+    /* ====== モーダル ====== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(15,23,42,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 24px;
+      margin: 24px;
+      max-width: 300px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .modal-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--slate-900);
+    }
+    .modal-card p {
+      font-size: 14px;
+      color: var(--slate-500);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .modal-close-btn {
+      padding: 12px 32px;
+      background: var(--slate-900);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
     }
 
     form { display: block; }
@@ -292,8 +556,9 @@
 <body id="top">
 
   <header>
+    <div class="label">QA Test Page</div>
     <h1>LP閲覧クエスト<br>ナビゲーション制御テスト</h1>
-    <p>ボタンをタップして、<br>条件ごとの動作が正しいか確認してください</p>
+    <p>各ボタンをタップして条件ごとの動作を確認</p>
   </header>
 
   <!-- テスト手順 -->
@@ -350,9 +615,12 @@
   <!-- 1. ページ内リンク -->
   <!-- ==================== -->
   <div class="test-card" id="sec-anchor">
-    <div class="card-header green">1. ページ内リンク（アンカー）</div>
+    <div class="card-header">
+      <span class="sec-num green">1</span>
+      ページ内リンク（アンカー）
+    </div>
     <div class="usecase-desc">
-      <strong>LPでの例:</strong> 目次から各セクションへジャンプ、「詳しくはこちら」で同ページ内の説明セクションへ移動など
+      目次から各セクションへジャンプ、「詳しくはこちら」で同ページ内の説明セクションへ移動など
     </div>
     <div class="card-body">
       <div class="test-row">
@@ -364,9 +632,9 @@
         </div>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
+          <tr class="row-scroll"><td class="condition">カウントダウン中</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
+          <tr class="row-scroll"><td class="condition">カウントダウン後</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
+          <tr class="row-scroll"><td class="condition">フラグOFF</td><td><span class="badge badge-scroll">スクロール</span> 常に移動できる</td></tr>
         </table>
       </div>
     </div>
@@ -376,9 +644,12 @@
   <!-- 2. 外部リンク -->
   <!-- ==================== -->
   <div class="test-card" id="sec-link">
-    <div class="card-header blue">2. 外部リンク（通常のリンク）</div>
+    <div class="card-header">
+      <span class="sec-num blue">2</span>
+      外部リンク（通常のリンク）
+    </div>
     <div class="usecase-desc">
-      <strong>LPでの例:</strong> 「公式サイトはこちら」「詳細を見る」などの外部サイトへのテキストリンク・バナーリンク
+      「公式サイトはこちら」「詳細を見る」などの外部サイトへのテキストリンク・バナーリンク
     </div>
     <div class="card-body">
       <div class="test-row">
@@ -386,9 +657,9 @@
         <a href="https://example.com" class="action-btn">example.com を開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 「N秒後にリンクを開けるようになります」と表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> 画面下からSafariブラウザで開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span> そのままページが切り替わる</td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 「N秒後にリンクを開けるようになります」と表示</td></tr>
+          <tr class="row-safari"><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> 画面下からSafariブラウザで開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span> そのままページが切り替わる</td></tr>
         </table>
       </div>
 
@@ -397,9 +668,9 @@
         <a href="https://www.google.com" class="action-btn">google.com を開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr class="row-safari"><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
 
@@ -408,9 +679,9 @@
         <a href="/other-page" class="action-btn">同じサイトの /other-page</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr class="row-safari"><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
 
@@ -419,9 +690,9 @@
         <a href="https://example.com/search?q=kauche&lang=ja" class="action-btn">パラメータ付きで開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr class="row-safari"><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
     </div>
@@ -431,22 +702,25 @@
   <!-- 3. フォーム送信 -->
   <!-- ==================== -->
   <div class="test-card" id="sec-form">
-    <div class="card-header orange">3. フォーム送信</div>
+    <div class="card-header">
+      <span class="sec-num orange">3</span>
+      フォーム送信
+    </div>
     <div class="usecase-desc">
-      <strong>LPでの例:</strong> アンケート回答送信、メルマガ登録フォーム、お問い合わせフォームなど。POSTとGETでWebView内の挙動が異なるためそれぞれテストが必要
+      アンケート回答送信、メルマガ登録、お問い合わせフォームなど。POSTとGETで挙動が異なるためそれぞれテストが必要
     </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">POST送信（アンケート回答・お問い合わせなど）</div>
         <form method="POST" action="https://httpbin.org/post">
           <input type="text" name="test_field" value="テストデータ" placeholder="入力内容">
-          <input type="submit" value="POST で送信する">
+          <input type="submit" value="▶ POST で送信する">
         </form>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 送信されず、メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-webview">そのまま遷移</span> 画面内で送信結果ページに移動（Safariは開かない）</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 送信されず、メッセージ表示</td></tr>
+          <tr class="row-webview"><td class="condition">カウントダウン後</td><td><span class="badge badge-webview">そのまま遷移</span> 画面内で送信結果に移動（Safari不使用）</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
         <div class="info-note">POST送信はWebView内で処理されるため、カウントダウン後もSafariではなくWebView内で遷移します</div>
       </div>
@@ -455,13 +729,13 @@
         <div class="test-name">GET送信（検索フォーム・フィルタなど）</div>
         <form method="GET" action="https://httpbin.org/get">
           <input type="text" name="search" value="kauche" placeholder="検索キーワード">
-          <input type="submit" value="GET で送信する">
+          <input type="submit" value="▶ GET で送信する">
         </form>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 送信されず、メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで検索結果が開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> 送信されず、メッセージ表示</td></tr>
+          <tr class="row-safari"><td class="condition">カウントダウン後</td><td><span class="badge badge-safari">Safari表示</span> Safariで検索結果が開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
     </div>
@@ -471,45 +745,48 @@
   <!-- 4. ページ内 JS 操作 -->
   <!-- ==================== -->
   <div class="test-card" id="sec-js">
-    <div class="card-header purple">4. ページ内 JS 操作</div>
+    <div class="card-header">
+      <span class="sec-num purple">4</span>
+      ページ内 JS 操作
+    </div>
     <div class="usecase-desc">
-      <strong>LPでの例:</strong> よくある質問のアコーディオン開閉、タブ切り替え、モーダル表示など。ページ遷移を伴わないDOM操作はナビゲーション制御の対象外
+      よくある質問のアコーディオン開閉、タブ切り替え、モーダル表示など。ページ遷移を伴わないDOM操作は制御対象外
     </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">アコーディオン（開閉UI）</div>
-        <div style="border:2px solid #e5e5ea; border-radius:12px; overflow:hidden; margin-bottom:12px;">
-          <button onclick="var c=this.nextElementSibling; c.style.display=c.style.display==='none'?'block':'none'; this.textContent=c.style.display==='none'?'▶ よくある質問（タップで開く）':'▼ よくある質問（タップで閉じる）'" style="width:100%; padding:14px 16px; background:#f2f2f7; border:none; font-size:15px; font-weight:700; text-align:left; cursor:pointer; font-family:inherit;">▶ よくある質問（タップで開く）</button>
-          <div style="display:none; padding:16px; font-size:14px; line-height:1.8;">
+        <div class="js-demo">
+          <button class="js-demo-trigger" onclick="var c=this.nextElementSibling; c.style.display=c.style.display==='none'?'block':'none'; this.textContent=c.style.display==='none'?'▶ よくある質問（タップで開く）':'▼ よくある質問（タップで閉じる）'">▶ よくある質問（タップで開く）</button>
+          <div class="js-demo-content">
             <p><strong>Q. これはアコーディオンですか？</strong></p>
             <p>A. はい、JS で開閉する UI です。ページ遷移は発生しません。</p>
-            <hr style="margin:12px 0; border:none; border-top:1px solid #e5e5ea;">
+            <hr style="margin:12px 0; border:none; border-top:1px solid var(--slate-200);">
             <p><strong>Q. タイマー中でも動きますか？</strong></p>
-            <p>A. はい。ナビゲーション制御の対象外なので常に動作するはずです。</p>
+            <p>A. はい。ナビゲーション制御の対象外なので常に動作します。</p>
           </div>
         </div>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">全条件共通</td><td><span class="badge badge-scroll">開閉</span> 常にタップで開閉できる（ページ遷移なし）</td></tr>
+          <tr class="row-scroll"><td class="condition">全条件共通</td><td><span class="badge badge-scroll">開閉</span> 常にタップで開閉できる（ページ遷移なし）</td></tr>
         </table>
         <div class="info-note">ページ内の DOM 操作のみなので、ナビゲーション制御の影響を受けません</div>
       </div>
 
       <div class="test-row">
         <div class="test-name">タブ切り替え</div>
-        <div style="border:2px solid #e5e5ea; border-radius:12px; overflow:hidden; margin-bottom:12px;">
-          <div style="display:flex; border-bottom:1px solid #e5e5ea;" id="tab-buttons">
-            <button onclick="switchTab('tab1')" id="tab-btn-tab1" style="flex:1; padding:12px; border:none; background:#007aff; color:#fff; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;">タブ A</button>
-            <button onclick="switchTab('tab2')" id="tab-btn-tab2" style="flex:1; padding:12px; border:none; background:#f2f2f7; color:#333; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;">タブ B</button>
-            <button onclick="switchTab('tab3')" id="tab-btn-tab3" style="flex:1; padding:12px; border:none; background:#f2f2f7; color:#333; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;">タブ C</button>
+        <div class="js-demo">
+          <div class="tab-bar">
+            <button onclick="switchTab('tab1')" id="tab-btn-tab1" class="tab-btn active">タブ A</button>
+            <button onclick="switchTab('tab2')" id="tab-btn-tab2" class="tab-btn">タブ B</button>
+            <button onclick="switchTab('tab3')" id="tab-btn-tab3" class="tab-btn">タブ C</button>
           </div>
-          <div id="tab-tab1" style="padding:16px; font-size:14px;">タブ A の内容です。タブをタップして切り替えてください。</div>
-          <div id="tab-tab2" style="padding:16px; font-size:14px; display:none;">タブ B の内容です。ページ遷移なしで表示が切り替わります。</div>
-          <div id="tab-tab3" style="padding:16px; font-size:14px; display:none;">タブ C の内容です。ナビゲーション制御の影響を受けません。</div>
+          <div id="tab-tab1" class="tab-content">タブ A の内容です。タブをタップして切り替えてください。</div>
+          <div id="tab-tab2" class="tab-content" style="display:none;">タブ B の内容です。ページ遷移なしで表示が切り替わります。</div>
+          <div id="tab-tab3" class="tab-content" style="display:none;">タブ C の内容です。ナビゲーション制御の影響を受けません。</div>
         </div>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">全条件共通</td><td><span class="badge badge-scroll">切替</span> 常にタブをタップで切り替えられる（ページ遷移なし）</td></tr>
+          <tr class="row-scroll"><td class="condition">全条件共通</td><td><span class="badge badge-scroll">切替</span> 常にタブをタップで切り替えられる（ページ遷移なし）</td></tr>
         </table>
       </div>
 
@@ -520,18 +797,18 @@
         </button>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">全条件共通</td><td><span class="badge badge-scroll">表示</span> 常にモーダルが開閉できる（ページ遷移なし）</td></tr>
+          <tr class="row-scroll"><td class="condition">全条件共通</td><td><span class="badge badge-scroll">表示</span> 常にモーダルが開閉できる（ページ遷移なし）</td></tr>
         </table>
       </div>
     </div>
   </div>
 
   <!-- モーダル -->
-  <div id="test-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
-    <div style="background:#fff; border-radius:16px; padding:24px; margin:24px; max-width:320px; text-align:center;">
-      <div style="font-size:18px; font-weight:700; margin-bottom:12px;">モーダルダイアログ</div>
-      <div style="font-size:14px; color:#666; margin-bottom:20px; line-height:1.6;">これはJS で表示されるモーダルです。<br>ページ遷移は発生しません。</div>
-      <button onclick="document.getElementById('test-modal').style.display='none'" style="padding:12px 32px; background:#007aff; color:#fff; border:none; border-radius:10px; font-size:16px; font-weight:700; cursor:pointer; font-family:inherit;">閉じる</button>
+  <div id="test-modal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
+    <div class="modal-card">
+      <h3>モーダルダイアログ</h3>
+      <p>これはJS で表示されるモーダルです。<br>ページ遷移は発生しません。</p>
+      <button class="modal-close-btn" onclick="document.getElementById('test-modal').style.display='none'">閉じる</button>
     </div>
   </div>
 
@@ -539,9 +816,12 @@
   <!-- 5. ディープリンク -->
   <!-- ==================== -->
   <div class="test-card" id="sec-deep">
-    <div class="card-header red">5. ディープリンク（アプリ内遷移）</div>
+    <div class="card-header">
+      <span class="sec-num red">5</span>
+      ディープリンク（アプリ内遷移）
+    </div>
     <div class="usecase-desc">
-      <strong>LPでの例:</strong> 「アプリで商品を見る」「マイページへ」などカウシェアプリ内の別画面に遷移させるリンク
+      「アプリで商品を見る」「マイページへ」などカウシェアプリ内の別画面に遷移させるリンク
     </div>
     <div class="card-body">
       <div class="test-row">
@@ -549,9 +829,9 @@
         <a href="kauche-dev://app/tab/mypage" class="action-btn">マイページへ移動</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、アプリ内遷移しない</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> マイページに移動する</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、アプリ内遷移しない</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> マイページに移動する</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
 
@@ -560,7 +840,7 @@
         <a href="kauche-internal-dev://farm/quests/post_view_quest" class="action-btn">投稿閲覧クエストへ移動</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">全条件共通</td><td><span class="badge badge-warn">反応なし</span> タップしても何も起きない（既知の制限）</td></tr>
+          <tr class="row-warn"><td class="condition">全条件共通</td><td><span class="badge badge-warn">反応なし</span> タップしても何も起きない（既知の制限）</td></tr>
         </table>
         <div class="note">WebView の技術的制限により、このタイプのリンクは検知できません。タップしても何も起きないのが正常です。</div>
       </div>
@@ -571,9 +851,12 @@
   <!-- 6. 電話・メール・SMS -->
   <!-- ==================== -->
   <div class="test-card" id="sec-special">
-    <div class="card-header gray">6. 電話・メール・SMS</div>
+    <div class="card-header">
+      <span class="sec-num gray">6</span>
+      電話・メール・SMS
+    </div>
     <div class="usecase-desc">
-      <strong>LPでの例:</strong> 「お問い合わせはこちら」の電話番号リンク、メールアドレスリンクなど
+      「お問い合わせはこちら」の電話番号リンク、メールアドレスリンクなど
     </div>
     <div class="card-body">
       <div class="test-row">
@@ -581,9 +864,9 @@
         <a href="tel:090-0000-0000" class="action-btn">090-0000-0000 に電話</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> 電話アプリが開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> 電話アプリが開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
 
@@ -592,9 +875,9 @@
         <a href="mailto:test@example.com" class="action-btn">test@example.com にメール</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> メールアプリが開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> メールアプリが開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
 
@@ -603,9 +886,9 @@
         <a href="sms:090-0000-0000" class="action-btn">090-0000-0000 にSMS</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
-          <tr><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> メッセージアプリが開く</td></tr>
-          <tr><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> メッセージアプリが開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
     </div>
@@ -615,17 +898,10 @@
 
   <script>
     function switchTab(tabId) {
-      // すべてのタブコンテンツを非表示
       document.querySelectorAll('[id^="tab-tab"]').forEach(function(el) { el.style.display = 'none'; });
-      // すべてのタブボタンをデフォルトに
-      document.querySelectorAll('[id^="tab-btn-"]').forEach(function(el) {
-        el.style.background = '#f2f2f7';
-        el.style.color = '#333';
-      });
-      // 選択タブを表示
+      document.querySelectorAll('.tab-btn').forEach(function(el) { el.classList.remove('active'); });
       document.getElementById('tab-' + tabId).style.display = 'block';
-      document.getElementById('tab-btn-' + tabId).style.background = '#007aff';
-      document.getElementById('tab-btn-' + tabId).style.color = '#fff';
+      document.getElementById('tab-btn-' + tabId).classList.add('active');
     }
   </script>
 </body>
