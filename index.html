@@ -839,6 +839,17 @@
       </div>
 
       <div class="test-row">
+        <div class="test-name">kauche.go.link Universal Link (lK6Fa)</div>
+        <a href="https://kauche.go.link/lK6Fa" class="action-btn">kauche.go.link/lK6Fa を開く</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、遷移しない</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> Universal Link 経由でカウシェアプリが開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
+      </div>
+
+      <div class="test-row">
         <div class="test-name">kauche-internal-dev:// 投稿閲覧クエスト</div>
         <a href="kauche-internal-dev://farm/quests/post_view_quest" class="action-btn">投稿閲覧クエストへ移動</a>
         <table class="expect-table">
