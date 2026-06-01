@@ -600,6 +600,7 @@
     <a href="#sec-form">フォーム<br>送信</a>
     <a href="#sec-js">JS<br>操作</a>
     <a href="#sec-deep">ディープ<br>リンク</a>
+    <a href="#sec-product">商品<br>ページ</a>
     <a href="#sec-special">電話・<br>メール</a>
   </div>
 
@@ -862,11 +863,36 @@
   </div>
 
   <!-- ==================== -->
-  <!-- 6. 電話・メール・SMS -->
+  <!-- 6. 商品ページ（go.link） -->
+  <!-- ==================== -->
+  <div class="test-card" id="sec-product">
+    <div class="card-header">
+      <span class="sec-num red">6</span>
+      商品ページ（go.link）
+    </div>
+    <div class="usecase-desc">
+      go.link 経由で商品ページを開くリンク。外部ブラウザ指定（openExternalBrowser=1）付き
+    </div>
+    <div class="card-body">
+      <div class="test-row">
+        <div class="test-name">商品ページを開く</div>
+        <a href="https://kauchedev.go.link/6P36u?openExternalBrowser=1" class="action-btn">商品ページを開く</a>
+        <table class="expect-table">
+          <tr><th>条件</th><th>期待動作</th></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、遷移しない</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> 外部ブラウザで開く</td></tr>
+          <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== -->
+  <!-- 7. 電話・メール・SMS -->
   <!-- ==================== -->
   <div class="test-card" id="sec-special">
     <div class="card-header">
-      <span class="sec-num gray">6</span>
+      <span class="sec-num gray">7</span>
       電話・メール・SMS
     </div>
     <div class="usecase-desc">
