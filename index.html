@@ -863,24 +863,24 @@
   </div>
 
   <!-- ==================== -->
-  <!-- 6. 商品ページ（go.link） -->
+  <!-- 6. 商品ページ（ディープリンク） -->
   <!-- ==================== -->
   <div class="test-card" id="sec-product">
     <div class="card-header">
       <span class="sec-num red">6</span>
-      商品ページ（go.link）
+      商品ページ（ディープリンク）
     </div>
     <div class="usecase-desc">
-      go.link 経由で商品ページを開くリンク。外部ブラウザ指定（openExternalBrowser=1）付き
+      kauche-dev:// 経由でカウシェアプリ内の商品ページを開くリンク
     </div>
     <div class="card-body">
       <div class="test-row">
         <div class="test-name">商品ページを開く</div>
-        <a href="https://kauchedev.go.link/6P36u?openExternalBrowser=1" class="action-btn">商品ページを開く</a>
+        <a href="kauche-dev://app/products/1618fb90-2f46-4267-9108-d86943f30562" class="action-btn">商品ページを開く</a>
         <table class="expect-table">
           <tr><th>条件</th><th>期待動作</th></tr>
-          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、遷移しない</td></tr>
-          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> 外部ブラウザで開く</td></tr>
+          <tr class="row-block"><td class="condition">カウントダウン中</td><td><span class="badge badge-block">ブロック</span> メッセージ表示、アプリ内遷移しない</td></tr>
+          <tr class="row-app"><td class="condition">カウントダウン後</td><td><span class="badge badge-app">アプリ遷移</span> 商品ページに移動する</td></tr>
           <tr class="row-free"><td class="condition">フラグOFF</td><td><span class="badge badge-free">自由に動作</span></td></tr>
         </table>
       </div>
